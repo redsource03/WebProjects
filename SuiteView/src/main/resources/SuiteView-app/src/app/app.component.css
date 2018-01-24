@@ -1,0 +1,17 @@
+div.sidebar li
+{
+    width: 100%;
+    max-width: 120px;
+    
+}
+.sidebar a {
+    border-color: white;
+}
+div.sidebar{
+    min-height: 1080px;
+    border-right: 1px solid #ddd;
+}
+div.sidebar ul{
+    
+    border-bottom: 0px;
+}

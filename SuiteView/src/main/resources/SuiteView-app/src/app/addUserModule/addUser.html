@@ -1,0 +1,60 @@
+<block-ui> 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 pass-reset">
+        <p class="form-header">
+            Suite View 2.0</p>
+        <form #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)" name="addUserForm">
+          <div> 
+           <label>First Name:</label> <input class="field" type="text" name="fname" ngModel required #fname="ngModel">
+          </div> 
+          <div *ngIf="fname.errors?.required" class="error"> 
+              *First Name required. 
+          </div>
+          <div> 	 
+          <label> Last Name:</label> <input class="field" type="text" name="lname" ngModel required #lname="ngModel">
+          </div>
+          <div *ngIf="lname.errors?.required" class="error"> 
+              *Last Name required. 
+          </div>
+          <div> 	  
+              <label> Email:</label> <input class="field" type="text" email  name="email" ngModel required #email="ngModel" >	
+            </div>
+            <div *ngIf="email.errors?.email" class="error"> 
+                *Primary Email not valid.*
+           </div> 	  
+          <div> 	  
+              <label> Username:</label> <input class="field" type="text" name="username" ngModel required #username="ngModel">	  
+          </div>
+          <div *ngIf="username.errors?.required" class="error"> 
+              *Username required. 
+          </div>
+          <div> 
+              <label> Password:</label> <input class="field" type="password" validateEqual="cPassword" name="password" ngModel required #password="ngModel">
+          </div>
+          <div *ngIf="password.errors?.required" class="error"> 
+              *Password required. 
+          </div>
+          <div> 
+              <label>Confirm Password:</label> <input class="field" type="password"  validateEqual="password" name="cPassword" required ngModel required #cPassword="ngModel">
+          </div>
+          <small [hidden]="cPassword.valid" class="error">
+              *Password mismatch
+          </small> 
+          <div> 	 
+              <label> Job Role:</label> <input class="field" type="text" name="jobRole" ngModel #jobRole="ngModel">
+          </div>	  
+          <div> 	  
+              <label> Account:</label> <input class="field" type="text" name="account" ngModel  #account="ngModel">	  
+          </div>
+          
+          <div *ngIf="!password.errors?.required && !username.errors?.required && !fname.errors?.required && !lname.errors?.required
+          && !email.errors?.required && !email.errors?.email && !password.errors?.required && cPassword.valid 
+          ">
+           <button class="btn btn-success btn-sm blue">Submit</button> 
+          </div>	  
+        </form>
+     </div>
+     </div>
+     </div>
+</block-ui>

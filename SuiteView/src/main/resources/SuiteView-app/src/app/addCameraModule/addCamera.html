@@ -1,0 +1,36 @@
+<block-ui> 
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 pass-reset">
+            <p class="form-header">
+                Suite View 2.0</p>
+            <form #cameraForm="ngForm" (ngSubmit)="onFormSubmit(cameraForm)" name="addCameraForm">
+              <div> 
+               <label>Camera Name:</label> <input class="field" type="text" name="cameraName" ngModel required #cameraName="ngModel">
+              </div> 
+              <div *ngIf="cameraName.errors?.required" class="error"> 
+                  *Camera Name required. 
+              </div>
+              <div> 	 
+              <label> Location:</label> <input class="field" type="text" name="location" ngModel required #location="ngModel">
+              </div>
+              <div *ngIf="location.errors?.required" class="error"> 
+                  *Last Name required. 
+              </div>
+              <div> 	  
+                  <label> CameraInformation:</label> <input class="field" type="text"   name="cameraInformation" ngModel required #cameraInformation="ngModel" >	
+                </div>
+                <div *ngIf="cameraInformation.errors?.required" class="error"> 
+                    *Camera information is required.*
+               </div> 	  
+              
+              
+              <div *ngIf="!cameraName.errors?.required && !location.errors?.required && !cameraInformation.errors?.required 
+              ">
+               <button class="btn btn-success btn-sm blue">Submit</button> 
+              </div>	  
+            </form>
+         </div>
+         </div>
+         </div>
+    </block-ui>
