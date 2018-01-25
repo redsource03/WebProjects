@@ -2,6 +2,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 pass-reset">
+        <div class="shell">
         <p class="form-header">
             Suite View 2.0</p>
         <form #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)" name="addUserForm">
@@ -50,10 +51,11 @@
           
           <div *ngIf="!password.errors?.required && !username.errors?.required && !fname.errors?.required && !lname.errors?.required
           && !email.errors?.required && !email.errors?.email && !password.errors?.required && cPassword.valid 
-          ">
-           <button class="btn btn-success btn-sm blue">Submit</button> 
+          " >
+           <button class="btn btn-success btn-sm blue" style="margin-bottom: 10px">Submit</button> 
           </div>	  
         </form>
+    </div>
      </div>
      </div>
      </div>

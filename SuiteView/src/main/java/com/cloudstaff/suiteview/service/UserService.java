@@ -19,7 +19,12 @@ public class UserService {
 		UserItem u = null;
 		try{
 			u =userDao.getUserByUsername(username);
-			if(u!=null) return u;
+			if(u!=null) {
+				if(DigestUtils.sha256Hex(password).equals(u.getPassword())){
+					return u;
+				}else return null;
+				
+			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -35,6 +40,18 @@ public class UserService {
 		response.addCookie(cook);
 		return access;
 	}*/
+	public UserItem getUser(String username){
+		UserItem u = null;
+		try{
+			u =userDao.getUserByUsername(username);
+			if(u!=null) return u;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
 	public String addUser(AddUserFormModel uForm){
 		UserItem userDaoModel = new UserItem();
 		userDaoModel.setAccount(uForm.getAccount());

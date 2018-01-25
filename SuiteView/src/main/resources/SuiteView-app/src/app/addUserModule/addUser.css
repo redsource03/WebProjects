@@ -148,7 +148,6 @@ form.login a:hover
     position: relative;
     margin-top: 1%;
     z-index: 999;
-    background: #FFFFFF;
     padding: 20px 15px;
 }
 
@@ -203,4 +202,14 @@ form.login a:hover
     background-color: rgba(0, 0, 0, 0.66);
     padding: 10px;
     left: 45%;
+}
+.shell{
+    background: #FFFFFF;
+    width: 600px;
+    margin: 0 auto;
+    border-radius: 50px;
+    -moz-box-shadow:    3px 3px 5px 6px rgb(156, 156, 156);
+  -webkit-box-shadow: 3px 3px 5px 6px rgb(156, 156, 156);
+  box-shadow:         3px 3px 5px 6px rgb(156, 156, 156)dd;
+
 }

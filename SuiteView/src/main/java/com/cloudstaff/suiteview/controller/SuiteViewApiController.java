@@ -15,6 +15,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.cloudstaff.suiteview.dynamodb.model.UserItem;
 import com.cloudstaff.suiteview.forms.model.AddCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddUserFormModel;
+import com.cloudstaff.suiteview.forms.model.userSearchForm;
 import com.cloudstaff.suiteview.service.CameraService;
 import com.cloudstaff.suiteview.service.UserService;
 
@@ -56,5 +57,15 @@ public class SuiteViewApiController {
 	@RequestMapping(value="/addCamera",method=RequestMethod.POST)
 	public @ResponseBody String addCamera (@RequestBody AddCameraFormModel addCamera){
 		return "{\"Result\":\""+cameraService.addCamera(addCamera)+"\"}";
+	}
+	@RequestMapping(value="/userSearch",method=RequestMethod.POST)
+	public @ResponseBody UserItem userSearch (@RequestBody userSearchForm userSearchForm){
+		/**** add secuirity verify user ***/
+		UserItem u = userService.getUser(userSearchForm.getUsername());
+		if (u==null){
+			u= new UserItem();
+		}
+		return u;
+		
 	}
 }

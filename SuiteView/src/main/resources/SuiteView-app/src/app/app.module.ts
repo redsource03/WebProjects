@@ -7,6 +7,7 @@ import { EqualValidator } from './directive/equal-validator.directive';
 import { AppComponent } from './app.component';
 import { addUserComponent } from './addUserModule/addUser';
 import {addCameraComponent} from './addCameraModule/addCamera';
+import {editUserComponent} from './editUserModule/editUser';
 import { FormsModule } from '@angular/forms';
 
 import { UserService} from "./service/user.service";
@@ -16,7 +17,7 @@ import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   declarations: [
-    AppComponent,addUserComponent,EqualValidator,addCameraComponent
+    AppComponent,addUserComponent,EqualValidator,addCameraComponent,editUserComponent
   ],
   imports: [
     BrowserModule,
