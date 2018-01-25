@@ -15,4 +15,9 @@ export class CameraService{
                     return response.json();
                 });
     }
+    public getAllCamera(){
+        return this.http.get('/api/getAllCamera').map( (response: Response) => {
+            return response.json();
+        });
+    }
 }

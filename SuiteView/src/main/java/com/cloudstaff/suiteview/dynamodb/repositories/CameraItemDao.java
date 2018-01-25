@@ -1,10 +1,13 @@
 package com.cloudstaff.suiteview.dynamodb.repositories;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-
-
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +19,9 @@ import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.cloudstaff.suiteview.dynamodb.model.CameraItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -57,4 +63,32 @@ public class CameraItemDao {
 		
 		return c;
 	}
+	public List<CameraItem> getAllCamera(){
+		try{
+			ObjectMapper mapper = new ObjectMapper();
+			List<CameraItem> camArr =  new ArrayList<CameraItem>();
+			ScanRequest scanRequest = new ScanRequest()
+				    .withTableName(TABLE);
+				ScanResult result = amazonDynamoDB.scan(scanRequest);
+				for (Map<String, AttributeValue> item : result.getItems()){
+					camArr.add(mapper.readValue(printItem(item), CameraItem.class));
+				}
+				if (camArr.size()!=0) return camArr;
+		}catch(Exception e){
+			 e.printStackTrace();
+			 return null;
+		}
+		return null;
+	}
+	private static String printItem(Map<String, AttributeValue> attributeList) throws JSONException{
+        JSONObject json = new JSONObject();
+        for (Map.Entry<String, AttributeValue> item : attributeList.entrySet()) {
+            String attributeName = item.getKey();
+            AttributeValue value = item.getValue();
+            if(value.getS()!=null){
+            	json.put(attributeName, value.getS());
+            }
+        }
+        return json.toString();
+    }
 }

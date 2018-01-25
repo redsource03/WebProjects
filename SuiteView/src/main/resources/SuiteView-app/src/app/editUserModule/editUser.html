@@ -1,0 +1,47 @@
+<block-ui> 
+<div class="container-flow spacing pass-reset">
+    <div class="row">
+        <div class="col-xs-6" style="width: 50%">
+            <div>
+                <form #userSearchForm="ngForm" (ngSubmit)="onFormSubmit(userSearchForm)" name="userSearchForm">
+                    <input type="text" class="field" placeholder="Search username" style="width: 300px" name="username" ngModel required #username="ngModel"/>
+                    
+                    <button class="btn btn-success btn-sm blue">Search</button> 
+                </form>
+            </div>
+            <div>
+                <label class="headerbig" style="margin-top: 10px">{{user.firstname}}  {{user.lastname}}</label>
+            </div>
+            <div>
+                <label class="headermedium">{{user.jobrole}}</label>
+            </div>
+            <div>
+                <label class="headersmall">{{user.account}}</label>
+            </div>
+            <div>
+                <label class="headersmall">{{user.email}}</label>
+            </div>
+            <div>
+                <label class="headerbigbig" *ngIf="user.email!=null">Camera Access</label>
+            </div>
+
+            <div *ngFor="let item of user.cameralist;let index = index;trackBy:trackByIndex;">
+                <div>
+                    <label class="headermedium">{{user.cameralist[index]}}</label>
+                </div>
+            </div>
+
+            <div *ngFor="let item of camArry;let index = index;trackBy:trackByIndex;">
+                <div>
+                    <label class="headermedium">{{camArry[index]}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6" style="margin-top: 55px">
+            
+            
+           
+        </div>
+    </div>
+</div>
+</block-ui> 

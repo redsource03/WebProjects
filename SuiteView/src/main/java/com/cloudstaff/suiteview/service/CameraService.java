@@ -1,5 +1,8 @@
 package com.cloudstaff.suiteview.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +36,15 @@ public class CameraService {
 			return "Exception Occured";
 		}
 		return "Camera has been Added";
+	}
+	public List<String> getAllCameraName(){
+		List<CameraItem> camArry = cameraItemDao.getAllCamera();
+		List<String> camArryName = new ArrayList<>();
+		for(int i=0;i<camArry.size();i++){
+			camArryName.add(camArry.get(i).getCameraName());
+		}
+		if(camArryName.size()>0)return camArryName;
+		return null;
 	}
 
 

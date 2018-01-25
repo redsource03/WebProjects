@@ -1,0 +1,99 @@
+body
+{
+    background: url('https://s3.amazonaws.com/lawgical/assets/data/3656/original.jpg') fixed;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+}
+
+.wrap
+{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.field
+{
+    width: -webkit-fill-available;
+    margin: 0;
+    padding: 5px 10px;
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    outline: 0;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: rgb(5, 5, 5);
+    outline: 0;
+}
+.blue{
+    background-color: #007bff;
+    border-color: #007bff;
+
+}
+.blue:hover{
+    background-color: #0056b3
+    ;
+    border-color: #0056b3
+    ;
+}
+.blue:focus{
+    box-shadow: 0 0 0 3px rgba(18, 72, 193, 0.5);
+}
+.error{
+    font-size: 8px;
+    color: #c70000;
+}
+ label
+{
+    font-size: 12px;
+    font-weight: 400;
+    color: #212529;
+}
+label.headerbig{
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+    color: rgb(145, 145, 145);
+    text-transform: uppercase;
+    letter-spacing: 4px
+}
+label.headerbigbig{
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+    color: rgb(145, 145, 145);
+    text-transform: uppercase;
+    letter-spacing: 8px
+}
+label.headermedium{
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+    color: rgb(145, 145, 145);
+    letter-spacing: 2px
+}
+label.headersmall{
+    font-size: 12px;
+    font-weight: 800;
+    text-align: center;
+    color: rgb(145, 145, 145);
+    letter-spacing: 1px
+} 
+.pass-reset
+{
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    margin-top: 1%;
+    z-index: 999;
+    background: #FFFFFF;
+    padding: 20px 80px;
+}

@@ -68,4 +68,11 @@ public class SuiteViewApiController {
 		return u;
 		
 	}
+	@RequestMapping("/getAllCamera")
+	public @ResponseBody List<String> getAllCamera (){
+		
+		return cameraService.getAllCameraName();
+		
+		
+	}
 }
