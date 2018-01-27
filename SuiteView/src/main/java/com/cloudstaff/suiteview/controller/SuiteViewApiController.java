@@ -1,5 +1,6 @@
 package com.cloudstaff.suiteview.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,15 @@ public class SuiteViewApiController {
 		
 		return cameraService.getAllCameraName();
 		
+		
+	}
+	@RequestMapping("/testUpdateUser")
+	public void testUpdateUser(){
+		AddUserFormModel model =  new AddUserFormModel();
+		model.setUsername("redsource");
+		model.setFname("Mariska Samantha");
+		
+		userService.updateUser(model);
 		
 	}
 }

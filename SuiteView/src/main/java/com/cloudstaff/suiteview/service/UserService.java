@@ -1,6 +1,8 @@
 package com.cloudstaff.suiteview.service;
 
 
+import java.util.ArrayList;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +82,30 @@ public class UserService {
 		}
 		
 		return "OK";
+	}
+	public String updateUser(AddUserFormModel uForm){
+		UserItem userDaoModel = new UserItem();
+		userDaoModel.setAccount(uForm.getAccount());
+		userDaoModel.setActive("Y"); //<--- needs to be change to userID of the admin
+		userDaoModel.setAdmin("N");//<------ Needs to be changed
+		// create a java calendar instance
+		userDaoModel.setEmail(uForm.getEmail());
+		userDaoModel.setFirstname(uForm.getFname());
+		userDaoModel.setJobrole(uForm.getJobRole());
+		userDaoModel.setLastname(uForm.getLname());
+		//userDaoModel.setPassword(DigestUtils.sha256Hex(uForm.getPassword()));
+		userDaoModel.setUsername(uForm.getUsername());
+		userDaoModel.setUserKey(DigestUtils.sha256Hex(uForm.getUsername()));
+		ArrayList<String> list = new ArrayList<>();
+		list.add("ASD1");
+		list.add("ASD2");
+		list.add("ASD3");
+		userDaoModel.setCameralist(list);
+		userDao.updateUser(userDaoModel);
+		
+		
+		return "OK";
+		
 	}
 
 }
