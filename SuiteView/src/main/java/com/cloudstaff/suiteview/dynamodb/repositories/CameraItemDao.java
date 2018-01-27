@@ -26,11 +26,11 @@ import com.cloudstaff.suiteview.dynamodb.model.CameraItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Repository
-public class CameraItemDao {
+public class CameraItemDao extends  AbstractItemDao{
 	private static final String TABLE="cameras";
 	@Autowired
 	AmazonDynamoDB amazonDynamoDB;
-	public boolean save (CameraItem c){
+	/*public boolean save (CameraItem c){
 		try{
 			DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
 			Table table = dynamoDB.getTable(TABLE);
@@ -46,7 +46,7 @@ public class CameraItemDao {
 			return false;
 		}
 		return true;
-	}
+	}*/
 	public CameraItem getCameraByName(String cameraName)throws Exception{
 		CameraItem c =null;
 		
@@ -91,4 +91,9 @@ public class CameraItemDao {
         }
         return json.toString();
     }
+	@Override
+	protected String getTable() {
+		// TODO Auto-generated method stub
+		return TABLE;
+	}
 }

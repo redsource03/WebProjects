@@ -26,12 +26,12 @@ import com.cloudstaff.suiteview.dynamodb.model.UserItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Repository
-public class UserItemDao {
+public class UserItemDao extends AbstractItemDao{
 	
 	private static final String TABLE="users";
 	@Autowired
 	AmazonDynamoDB amazonDynamoDB;
-	public boolean save(UserItem u){
+	/*public boolean save(UserItem u){
 		try{
 			ArrayList<String> camList = new ArrayList<String>();
 			camList.add("CAM1");
@@ -56,7 +56,7 @@ public class UserItemDao {
 			return false;
 		}
 		return true;
-	}
+	}*/
 	public UserItem getUserByUsername(String username )throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
@@ -74,7 +74,7 @@ public class UserItemDao {
 		
 		return null;
 	}
-	public boolean updateUser(UserItem item){
+	/*public boolean updateUser(UserItem item){
 		try{
 			Class myClass = UserItem.class;
 			for (Method method: myClass.getMethods()){
@@ -128,5 +128,10 @@ public class UserItemDao {
 		}
 		
 		return false;
+	}*/
+	@Override
+	protected String getTable() {
+		// TODO Auto-generated method stub
+		return TABLE;
 	}
 }

@@ -80,7 +80,7 @@ public class SuiteViewApiController {
 	public void testUpdateUser(){
 		AddUserFormModel model =  new AddUserFormModel();
 		model.setUsername("redsource");
-		model.setFname("Mariska Samantha");
+		model.setFname("Paul Vincent");
 		
 		userService.updateUser(model);
 		

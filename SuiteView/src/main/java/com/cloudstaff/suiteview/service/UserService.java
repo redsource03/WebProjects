@@ -101,7 +101,13 @@ public class UserService {
 		list.add("ASD2");
 		list.add("ASD3");
 		userDaoModel.setCameralist(list);
-		userDao.updateUser(userDaoModel);
+		try{
+
+			userDao.update(userDaoModel);
+		}catch(Exception e ){
+			e.printStackTrace();
+			return "fail";
+		}
 		
 		
 		return "OK";

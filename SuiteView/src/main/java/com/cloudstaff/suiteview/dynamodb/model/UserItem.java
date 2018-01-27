@@ -7,7 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName="users")
-public class UserItem {
+public class UserItem extends AbstractItem{
 	private String userKey;
 	private String username;
 	private String firstname;
