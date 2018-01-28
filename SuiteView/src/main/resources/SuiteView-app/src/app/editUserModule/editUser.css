@@ -16,6 +16,9 @@ body
     left: 0;
     z-index: 99;
 }
+.modal {
+    background: rgba(0,0,0,0.6);
+  }
 
 .field
 {
@@ -94,6 +97,31 @@ label.headersmall{
     position: relative;
     margin-top: 1%;
     z-index: 999;
-    background: #FFFFFF;
     padding: 20px 80px;
+}
+.shell{
+    background: #FFFFFF;
+    width: 1600px;
+    margin: 0 auto;
+    border-radius: 50px;
+    -moz-box-shadow:    3px 3px 5px 6px rgb(156, 156, 156);
+  -webkit-box-shadow: 3px 3px 5px 6px rgb(156, 156, 156);
+  box-shadow:         3px 3px 5px 6px rgb(156, 156, 156)dd;
+
+}
+i{
+    color:#ff0000;
+    cursor: pointer;
+}
+i:hover{
+    color: #750303;
+}
+i.add{
+    color: #00b300;
+}
+i.add:hover{
+    color: #007900;
+}
+i.camera{
+    color: #007bff;
 }

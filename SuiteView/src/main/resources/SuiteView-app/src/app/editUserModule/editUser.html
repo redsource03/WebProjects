@@ -1,7 +1,8 @@
 <block-ui> 
-<div class="container-flow spacing pass-reset">
+    <div class = "shell">
+<div class="container-flow spacing pass-reset" >
     <div class="row">
-        <div class="col-xs-6" style="width: 50%">
+        <div class="col-xs-6" style="width: 40%">
             <div>
                 <form #userSearchForm="ngForm" (ngSubmit)="onFormSubmit(userSearchForm)" name="userSearchForm">
                     <input type="text" class="field" placeholder="Search username" style="width: 300px" name="username" ngModel required #username="ngModel"/>
@@ -13,6 +14,7 @@
                 <label class="headerbig" style="margin-top: 10px">{{user.firstname}}  {{user.lastname}}</label>
             </div>
             <div>
+                   
                 <label class="headermedium">{{user.jobrole}}</label>
             </div>
             <div>
@@ -21,27 +23,48 @@
             <div>
                 <label class="headersmall">{{user.email}}</label>
             </div>
-            <div>
-                <label class="headerbigbig" *ngIf="user.email!=null">Camera Access</label>
+            <div><br><br>
+                <label class="headerbigbig" *ngIf="user.email!=null">Camera</label> <i *ngIf="user.email!=null" class="fa fa-video-camera fa-3x camera" aria-hidden="true"></i>
+               <br><br>
             </div>
-
-            <div *ngFor="let item of user.cameralist;let index = index;trackBy:trackByIndex;">
-                <div>
-                    <label class="headermedium">{{user.cameralist[index]}}</label>
+            <table>
+            <tr *ngFor="let item of user.cameralist;let index = index;trackBy:trackByIndex;">
+                
+                    <td><label class="headermedium">{{user.cameralist[index]}}</label></td>
+                    <td><i class="fa fa-times" (click)="remove(user.username,item)" aria-hidden="true"></i></td>
+                
+            </tr>
+            </table>
+            <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title">Camera List</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
-            </div>
-
-            <div *ngFor="let item of camArry;let index = index;trackBy:trackByIndex;">
-                <div>
-                    <label class="headermedium">{{camArry[index]}}</label>
+                <div class="modal-body">
+                    <div *ngFor="let item of camArry;let index = index;trackBy:trackByIndex;">
+                        <div>
+                            <a href="#"  (click)="add(user.username,item)">{{camArry[index]}}</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+                </div>
+              </ng-template>
+              <i class="fa fa-plus fa-2x add" *ngIf="user.email!=null" aria-hidden="true" (click)="open(content)"></i>
+           
+              
+              <hr>
+              
+              <pre>{{closeResult}}</pre>
         </div>
         <div class="col-xs-6" style="margin-top: 55px">
             
-            
-           
+            asdm,12iu3y12ui3v129833475vo24ui5yb92vb 523 3jhasjkdhasdkj
         </div>
     </div>
+</div>
 </div>
 </block-ui> 

@@ -23,4 +23,26 @@ export class UserService{
                     return response.json();
                 });
     }
+    public removeCameraFromUser(username:string,cameraname:string){
+        let json:string;
+        json="{\"username\":\""+username+"\","+"\"cameraname\":"+"\""+cameraname+"\"}";
+        
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/removeCameraUser', json, options)
+                   .map( (response: Response) => {
+                    return response.json();
+                });
+    }
+    public addCameraToUser(username:string,cameraname:string){
+        let json:string;
+        json="{\"username\":\""+username+"\","+"\"cameraname\":"+"\""+cameraname+"\"}";
+        
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/addCameraUser', json, options)
+                   .map( (response: Response) => {
+                    return response.json();
+                });
+    }
 }

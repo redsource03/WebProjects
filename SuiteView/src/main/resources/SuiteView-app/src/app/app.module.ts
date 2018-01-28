@@ -14,16 +14,19 @@ import { UserService} from "./service/user.service";
 import { CameraService} from './service/camera.service'
 import { BlockUIModule } from 'ng-block-ui';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
     AppComponent,addUserComponent,EqualValidator,addCameraComponent,editUserComponent
   ],
-  imports: [
+  imports: [NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,
-    BlockUIModule
+    BlockUIModule,
+    
   ],
   providers: [UserService,CameraService],
   bootstrap: [AppComponent]

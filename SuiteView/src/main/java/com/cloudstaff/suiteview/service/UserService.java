@@ -43,9 +43,9 @@ public class UserService {
 		return access;
 	}*/
 	public UserItem getUser(String username){
-		UserItem u = null;
+		UserItem u = new UserItem();
 		try{
-			u =userDao.getUserByUsername(username);
+			u =userDao.getItemByKey(DigestUtils.sha256Hex(username), u);
 			if(u!=null) return u;
 			
 		}catch(Exception e){
@@ -112,6 +112,47 @@ public class UserService {
 		
 		return "OK";
 		
+	}
+	public UserItem removeCameraFromUser(String username,String cameraname){
+		try{
+			UserItem item = new UserItem();
+			item = userDao.getItemByKey(DigestUtils.sha256Hex(username), item);
+			if(item!=null){
+				ArrayList<String> list = item.getCameralist();
+				for(int i=0;i<list.size();i++){
+					if(list.get(i).equals(cameraname)){
+						list.remove(i);
+						break;
+					}
+				}
+				userDao.update(item);
+				return item;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	public UserItem addCameraFromUser(String username,String cameraname){
+		try{
+			UserItem item = new UserItem();
+			item = userDao.getItemByKey(DigestUtils.sha256Hex(username), item);
+			if(item!=null){
+				ArrayList<String> list = item.getCameralist();
+				if(list==null){
+					list = new ArrayList<String>();
+				}
+				list.add(cameraname);
+				item.setCameralist(list);
+				userDao.update(item);
+				return item;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
 	}
 
 }

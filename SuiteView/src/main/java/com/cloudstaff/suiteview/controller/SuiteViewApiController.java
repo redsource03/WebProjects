@@ -16,6 +16,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.cloudstaff.suiteview.dynamodb.model.UserItem;
 import com.cloudstaff.suiteview.forms.model.AddCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddUserFormModel;
+import com.cloudstaff.suiteview.forms.model.AddRemoveCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.userSearchForm;
 import com.cloudstaff.suiteview.service.CameraService;
 import com.cloudstaff.suiteview.service.UserService;
@@ -50,13 +51,14 @@ public class SuiteViewApiController {
 	}
 	@RequestMapping(value="/addUser" , method=RequestMethod.POST)
 	public @ResponseBody String addUser (@RequestBody  AddUserFormModel addUser){
-		
+		/****ADD Secuirity **/
 		return "{\"Result\":\""+userService.addUser(addUser)+"\"}";
 		
 		
 	}
 	@RequestMapping(value="/addCamera",method=RequestMethod.POST)
 	public @ResponseBody String addCamera (@RequestBody AddCameraFormModel addCamera){
+		/****ADD Secuirity **/
 		return "{\"Result\":\""+cameraService.addCamera(addCamera)+"\"}";
 	}
 	@RequestMapping(value="/userSearch",method=RequestMethod.POST)
@@ -71,9 +73,21 @@ public class SuiteViewApiController {
 	}
 	@RequestMapping("/getAllCamera")
 	public @ResponseBody List<String> getAllCamera (){
-		
+		/****ADD Secuirity **/
 		return cameraService.getAllCameraName();
 		
+		
+	}
+	@RequestMapping(value="/removeCameraUser",method=RequestMethod.POST)
+	public @ResponseBody UserItem removeCameraUser (@RequestBody  AddRemoveCameraFormModel rm){
+		/****ADD Secuirity **/
+		return userService.removeCameraFromUser(rm.getUsername(), rm.getCameraname());
+		
+	}
+	@RequestMapping(value="/addCameraUser",method=RequestMethod.POST)
+	public @ResponseBody UserItem addCameraUser (@RequestBody  AddRemoveCameraFormModel rm){
+		/****ADD Secuirity **/
+		return userService.addCameraFromUser(rm.getUsername(), rm.getCameraname());
 		
 	}
 	@RequestMapping("/testUpdateUser")
