@@ -54,6 +54,18 @@ public class UserService {
 		}
 		return null;
 	}
+	public UserItem getUserByKey(String key){
+		UserItem u = new UserItem();
+		try{
+			u =userDao.getItemByKey(key, u);
+			if(u!=null) return u;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
 	public String addUser(AddUserFormModel uForm){
 		UserItem userDaoModel = new UserItem();
 		userDaoModel.setAccount(uForm.getAccount());
