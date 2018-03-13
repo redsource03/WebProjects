@@ -40,7 +40,7 @@ public class SuiteViewApiController {
 	public  @ResponseBody String fundamentals() throws Exception{
 		DynamoDBMapper mapper = new DynamoDBMapper(amazonDynamoDB);
 		UserItem item = new UserItem();
-		item.setUserKey("newtest");
+		item.setUserkey("newtest");
 		
 		DynamoDBQueryExpression<UserItem> queryExpression = new DynamoDBQueryExpression<UserItem>()
 			    .withHashKeyValues(item);
@@ -48,7 +48,7 @@ public class SuiteViewApiController {
 			List<UserItem> itemList = mapper.query(UserItem.class, queryExpression);
 
 			for (int i = 0; i < itemList.size(); i++) {
-			    System.out.println(itemList.get(i).getUserKey());
+			    System.out.println(itemList.get(i).getUserkey());
 			    System.out.println(itemList.get(i).getUsername());
 			}
 

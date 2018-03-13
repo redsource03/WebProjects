@@ -12,10 +12,10 @@ public class CameraItem extends AbstractItem{
 	private String cameraInformation;
 	private String cameraLocation;
 	@DynamoDBHashKey(attributeName="camerakey")
-	public String getCameraKey() {
+	public String getCamerakey() {
 		return cameraKey;
 	}
-	public void setCameraKey(String cameraKey) {
+	public void setCamerakey(String cameraKey) {
 		this.cameraKey = cameraKey;
 	}
 	@DynamoDBAttribute(attributeName="cameraName")

@@ -22,7 +22,7 @@ public class CameraService {
 		cam.setCameraInformation(cModel.getCameraInformation());
 		cam.setCameraName(cModel.getCameraName());
 		cam.setCameraLocation(cModel.getLocation());
-		cam.setCameraKey(DigestUtils.sha256Hex(cModel.getCameraName()));
+		cam.setCamerakey(DigestUtils.sha256Hex(cModel.getCameraName()));
 		
 		try{
 			if(cameraItemDao.getCameraByName(cam.getCameraName())==null ){

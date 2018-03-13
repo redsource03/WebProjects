@@ -78,7 +78,7 @@ public class UserService {
 		userDaoModel.setLastname(uForm.getLname());
 		userDaoModel.setPassword(DigestUtils.sha256Hex(uForm.getPassword()));
 		userDaoModel.setUsername(uForm.getUsername());
-		userDaoModel.setUserKey(DigestUtils.sha256Hex(uForm.getUsername()));
+		userDaoModel.setUserkey(DigestUtils.sha256Hex(uForm.getUsername()));
 		try{
 			if(userDao.getUserByUsername(userDaoModel.getUsername())==null){
 				userDao.save(userDaoModel);
@@ -107,7 +107,7 @@ public class UserService {
 		userDaoModel.setLastname(uForm.getLname());
 		//userDaoModel.setPassword(DigestUtils.sha256Hex(uForm.getPassword()));
 		userDaoModel.setUsername(uForm.getUsername());
-		userDaoModel.setUserKey(DigestUtils.sha256Hex(uForm.getUsername()));
+		userDaoModel.setUserkey(DigestUtils.sha256Hex(uForm.getUsername()));
 		ArrayList<String> list = new ArrayList<>();
 		list.add("ASD1");
 		list.add("ASD2");

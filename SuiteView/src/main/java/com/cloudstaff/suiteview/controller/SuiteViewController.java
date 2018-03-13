@@ -44,7 +44,7 @@ public class SuiteViewController {
 	public String doLogin(@ModelAttribute LogInForm loginForm,HttpServletResponse response) {
 		 UserItem item = userService.verifyLogin(loginForm.getUsername(), loginForm.getPassword());
 		if(item!=null){
-			SessionUtil.setAccessToken(response, item.getUserKey());
+			SessionUtil.setAccessToken(response, item.getUserkey());
 			if(item.getAdmin().equals("y")){
 				return "admin";
 			}else{

@@ -24,14 +24,14 @@
                 <label class="headersmall">{{user.email}}</label>
             </div>
             <div><br><br>
-                <label class="headerbigbig" *ngIf="user.email!=null">Camera</label> <i *ngIf="user.email!=null" class="fa fa-video-camera fa-3x camera" aria-hidden="true"></i>
+                <label class="headerbigbig" *ngIf="user.email!=null">Camera</label> <i *ngIf="user.email!=null" aria-hidden="true"></i>
                <br><br>
             </div>
-            <table>
+            <table style="margin-left: 10px;">
             <tr *ngFor="let item of user.cameralist;let index = index;trackBy:trackByIndex;">
                 
                     <td><label class="headermedium">{{user.cameralist[index]}}</label></td>
-                    <td><i class="fa fa-times" (click)="remove(user.username,item)" aria-hidden="true"></i></td>
+                    <td><i class="fa fa-trash" (click)="remove(user.username,item)" aria-hidden="true"></i></td>
                 
             </tr>
             </table>
@@ -53,7 +53,8 @@
                   <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
                 </div>
               </ng-template>
-              <i class="fa fa-plus fa-2x add" *ngIf="user.email!=null" aria-hidden="true" (click)="open(content)"></i>
+              
+              <i class="fa fa-plus-square fa-2x add" *ngIf="user.email!=null" aria-hidden="true" (click)="open(content)" style="margin-left: 10px;"></i>
            
               
               <hr>

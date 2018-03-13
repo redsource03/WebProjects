@@ -6,9 +6,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
-@DynamoDBTable(tableName="users")
+@DynamoDBTable(tableName="UsersImageSuiteView")
 public class UserItem extends AbstractItem{
-	private String userKey;
+	private String userkey;
 	private String username;
 	private String firstname;
 	private String lastname;
@@ -20,11 +20,11 @@ public class UserItem extends AbstractItem{
 	private String admin;
 	private ArrayList<String> cameralist;
 	@DynamoDBHashKey(attributeName="userkey")
-	public String getUserKey() {
-		return userKey;
+	public String getUserkey() {
+		return userkey;
 	}
-	public void setUserKey(String userKey) {
-		this.userKey = userKey;
+	public void setUserkey(String userkey) {
+		this.userkey = userkey;
 	}
 	@DynamoDBAttribute(attributeName="username")
 	public String getUsername() {

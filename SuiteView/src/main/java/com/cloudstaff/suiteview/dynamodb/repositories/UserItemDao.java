@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Repository
 public class UserItemDao extends AbstractItemDao{
 	
-	private static final String TABLE="users";
+	private static final String TABLE="UsersSuiteView";
 	@Autowired
 	AmazonDynamoDB amazonDynamoDB;
 	/*public boolean save(UserItem u){
@@ -60,10 +60,11 @@ public class UserItemDao extends AbstractItemDao{
 	public UserItem getUserByUsername(String username )throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
-		Table table = dynamoDB.getTable(TABLE);
+		
 		UserItem u= new UserItem();
+		Table table = dynamoDB.getTable(this.getTable());
 		u.setUsername(username);
-		QuerySpec spec = new QuerySpec().withKeyConditionExpression("userKey = :v_username" )
+		QuerySpec spec = new QuerySpec().withKeyConditionExpression("userkey = :v_username" )
 				.withValueMap(new ValueMap().withString(":v_username", DigestUtils.sha256Hex(username)));
 
 		ItemCollection<QueryOutcome> items = table.query(spec);

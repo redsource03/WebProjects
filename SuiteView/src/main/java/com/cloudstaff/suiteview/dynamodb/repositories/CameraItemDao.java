@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Repository
 public class CameraItemDao extends  AbstractItemDao{
-	private static final String TABLE="cameras";
+	private static final String TABLE="CamerasSuiteView";
 	@Autowired
 	AmazonDynamoDB amazonDynamoDB;
 	/*public boolean save (CameraItem c){
@@ -52,9 +52,9 @@ public class CameraItemDao extends  AbstractItemDao{
 		
 		ObjectMapper mapper = new ObjectMapper();
 		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
-		Table table = dynamoDB.getTable(TABLE);
-		QuerySpec spec = new QuerySpec().withKeyConditionExpression("cameraKey = :v_cameraKey" )
-				.withValueMap(new ValueMap().withString(":v_cameraKey", DigestUtils.sha256Hex(cameraName)));
+		Table table = dynamoDB.getTable(this.getTable());
+		QuerySpec spec = new QuerySpec().withKeyConditionExpression("camerakey = :v_camerakey" )
+				.withValueMap(new ValueMap().withString(":v_camerakey", DigestUtils.sha256Hex(cameraName)));
 		ItemCollection<QueryOutcome> items = table.query(spec);
 		Iterator<Item> iterator = items.iterator();
 		while (iterator.hasNext()) {

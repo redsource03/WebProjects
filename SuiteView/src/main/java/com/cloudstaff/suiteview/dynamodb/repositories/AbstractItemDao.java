@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.ItemCollection;
@@ -36,10 +36,15 @@ public abstract class AbstractItemDao {
 		Class myClass = item.getClass();
 		String s="";
 		for (Method method: myClass.getMethods()){
-			if(method.getName().contains("get") && method.getName().contains("Key")){
+			/*if(method.getName().contains("get") && method.getName().contains("key")){
 				char[] chArr = method.getName().replaceAll("get", "").toCharArray();
 				chArr[0] = Character.toLowerCase(chArr[0]);
 				s = new String(chArr);
+				break;
+			}*/
+			if(method.isAnnotationPresent(DynamoDBHashKey.class)){
+				DynamoDBHashKey keyName = method.getAnnotation(DynamoDBHashKey.class);
+				s=keyName.attributeName();
 				break;
 			}
 		}
@@ -60,7 +65,7 @@ public abstract class AbstractItemDao {
 			Table table = dynamoDB.getTable(getTable());
 			Class myClass = item.getClass();
 			for (Method method: myClass.getMethods()){
-				if(method.getName().contains("get") && method.getName().contains("Key")){
+				if(method.getName().contains("get") && method.getName().contains("key")){
 					char[] chArr = method.getName().replaceAll("get", "").toCharArray();
 					chArr[0] = Character.toLowerCase(chArr[0]);
 					String s = new String(chArr);
@@ -88,7 +93,7 @@ public abstract class AbstractItemDao {
 				char[] chArr = method.getName().replaceAll("get", "").toCharArray();
 				chArr[0] = Character.toLowerCase(chArr[0]);
 				String s = new String(chArr);
-				if(method.getName().contains("Key")){
+				if(method.getName().contains("key")){
 					key.put(s,  new AttributeValue().withS((String)method.invoke(item)));
 					updateItemRequest.withTableName(getTable()).withKey(key);
 				}else if (!"class".equalsIgnoreCase(s)) {
