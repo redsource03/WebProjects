@@ -4,7 +4,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
-@DynamoDBTable(tableName="cameras")
+@DynamoDBTable(tableName="CamerasSuiteView")
 public class CameraItem extends AbstractItem{
 	private String cameraKey;
 	private String cameraName;

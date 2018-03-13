@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,32 @@ public abstract class AbstractItemDao {
 		
 		return null;
 	}
+	public <T extends AbstractItem> List<T>   getAllItemsByKey(String key, T item) throws Exception{
+		
+		ObjectMapper mapper = new ObjectMapper();
+		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
+		Table table = dynamoDB.getTable(getTable());
+		Class myClass = item.getClass();
+		String s="";
+		for (Method method: myClass.getMethods()){
+			if(method.isAnnotationPresent(DynamoDBHashKey.class)){
+				DynamoDBHashKey keyName = method.getAnnotation(DynamoDBHashKey.class);
+				s=keyName.attributeName();
+				break;
+			}
+		}
+		QuerySpec spec = new QuerySpec().withKeyConditionExpression(s+"=:v_"+s )
+				.withValueMap(new ValueMap().withString(":v_"+s, key));
+
+		ItemCollection<QueryOutcome> items = table.query(spec);
+		List<T> list = new ArrayList<T>();
+		Iterator<Item> iterator = items.iterator();
+		while (iterator.hasNext()) {
+		   list.add(  (T) mapper.readValue(iterator.next().toJSONPretty(), item.getClass()));
+		}
+		
+		return list;
+	}
 	public <T extends AbstractItem>boolean save (T item){
 		try{
 			DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
@@ -93,7 +120,7 @@ public abstract class AbstractItemDao {
 				char[] chArr = method.getName().replaceAll("get", "").toCharArray();
 				chArr[0] = Character.toLowerCase(chArr[0]);
 				String s = new String(chArr);
-				if(method.getName().contains("key")){
+				if(method.isAnnotationPresent(DynamoDBHashKey.class)){
 					key.put(s,  new AttributeValue().withS((String)method.invoke(item)));
 					updateItemRequest.withTableName(getTable()).withKey(key);
 				}else if (!"class".equalsIgnoreCase(s)) {

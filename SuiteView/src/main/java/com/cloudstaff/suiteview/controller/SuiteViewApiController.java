@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,13 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.cloudstaff.suiteview.dynamodb.model.ImageItem;
 import com.cloudstaff.suiteview.dynamodb.model.UserItem;
 import com.cloudstaff.suiteview.forms.model.AddCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddRemoveCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddUserFormModel;
-import com.cloudstaff.suiteview.forms.model.LogInForm;
 import com.cloudstaff.suiteview.forms.model.userSearchForm;
 import com.cloudstaff.suiteview.service.CameraService;
+import com.cloudstaff.suiteview.service.ImageService;
 import com.cloudstaff.suiteview.service.UserService;
 import com.cloudstaff.suiteview.utils.SessionUtil;
 
@@ -34,6 +33,8 @@ public class SuiteViewApiController {
 	UserService userService;
 	@Autowired
 	CameraService cameraService;
+	@Autowired
+	ImageService imageService;
 	@Autowired
 	AmazonDynamoDB amazonDynamoDB;
 	@RequestMapping("/you")
@@ -121,7 +122,11 @@ public class SuiteViewApiController {
 		}else{
 			 return new UserItem();
 		}
-		
+	}
+	
+	@RequestMapping(value="/test",method=RequestMethod.GET)
+	public @ResponseBody List<ImageItem> test (){
+		return imageService.getImageByCameraByDate("crk90-ctv-008","2018-02-16");
 		
 	}
 	
