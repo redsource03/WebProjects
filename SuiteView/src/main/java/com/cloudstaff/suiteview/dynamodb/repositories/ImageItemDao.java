@@ -1,15 +1,16 @@
 package com.cloudstaff.suiteview.dynamodb.repositories;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
@@ -18,6 +19,10 @@ import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.UpdateItemRequest;
+import com.amazonaws.services.dynamodbv2.model.UpdateItemResult;
+import com.amazonaws.util.StringUtils;
 import com.cloudstaff.suiteview.dynamodb.model.ImageItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @Repository
@@ -54,6 +59,79 @@ public class ImageItemDao extends AbstractItemDao{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public boolean update (ImageItem item) throws Exception{
+		
+		Map<String,AttributeValue> key =new HashMap<>();
+		Map<String, AttributeValue> attributeValues = new HashMap<>();
+		UpdateItemRequest updateItemRequest = new UpdateItemRequest();
+		String expression ="set";
+		Map<String, String> expressionAttributeNames = new HashMap<String, String>();
+		expressionAttributeNames.put("#hour", "hour");
+		expressionAttributeNames.put("#min", "min");
+		expressionAttributeNames.put("#sec", "sec");
+		Class myClass = item.getClass();
+		
+		key.put("cameraName", new AttributeValue().withS((String)item.getCameraName()));
+		key.put("date", new AttributeValue().withS((String)item.getDate()));
+		
+		  Set set = key.entrySet();
+	      
+	      // Get an iterator
+	      Iterator i = set.iterator();
+	      Map.Entry mset1=null;
+	      Map.Entry mset2=null;
+	      // Display elements 
+	      int counter=0;
+	      while(i.hasNext()) {
+	 
+	         if(counter==0){
+	        	 mset1 = (Map.Entry)i.next();
+	         }else{
+	        	 mset2=(Map.Entry)i.next();
+	         }
+	        counter++;
+	      }
+		updateItemRequest.withTableName(getTable()).withKey(mset1,mset2);
+		for (Method method: myClass.getMethods()){
+			if(method.getName().contains("get")){
+				char[] chArr = method.getName().replaceAll("get", "").toCharArray();
+				chArr[0] = Character.toLowerCase(chArr[0]);
+				String s = new String(chArr);
+				String v = s;
+				if(s.equals("hour")||s.equals("date")||s.equals("min")||s.equals("sec")){
+					s="#"+s;
+				}
+				 if (!"class".equalsIgnoreCase(s)) {
+					if(method.getReturnType().equals(String.class)){
+						if(!StringUtils.isNullOrEmpty((String)method.invoke(item))){
+							if(!v.equals("date") && !v.equals("cameraName")){
+								expression += "set".equals(expression)? " "+s+"=:"+v:" ,"+s+"=:"+v;
+								attributeValues.put(":"+v, new AttributeValue().withS((String)method.invoke(item)));
+							}
+							
+						}
+					}else if(method.getReturnType().equals(ArrayList.class)){
+						ArrayList<String> list = (ArrayList<String>)method.invoke(item);
+						if(list!=null && list.size()>0){
+							expression += "set".equals(expression)? " "+s+"=:"+v:" ,"+s+"=:"+v;
+							attributeValues.put(":"+v, new AttributeValue().withSS(list));
+						}
+						
+					}
+					
+				}
+				
+			}
+		}
+		updateItemRequest.withUpdateExpression(expression);
+		updateItemRequest.withExpressionAttributeValues(attributeValues).withExpressionAttributeNames(expressionAttributeNames);
+		UpdateItemResult updateItemResult = amazonDynamoDB.updateItem(updateItemRequest);
+		if(updateItemResult!=null){
+			return true;
+		}
+		
+		return false;
 	}
 
 }

@@ -11,6 +11,7 @@ public class ImageItem extends AbstractItem{
 	private String objectKey;
 	private String sec;
 	private String webUrl;
+	private String signedUrlExp;
 	@DynamoDBHashKey(attributeName="cameraName")
 	public String getCameraName() {
 		return cameraName;
@@ -59,6 +60,13 @@ public class ImageItem extends AbstractItem{
 	}
 	public void setWebUrl(String webUrl) {
 		this.webUrl = webUrl;
+	}
+	@DynamoDBAttribute(attributeName="signedUrlExp")
+	public String getSignedUrlExp() {
+		return signedUrlExp;
+	}
+	public void setSignedUrlExp(String signedUrlExp) {
+		this.signedUrlExp = signedUrlExp;
 	}
 	
 	
