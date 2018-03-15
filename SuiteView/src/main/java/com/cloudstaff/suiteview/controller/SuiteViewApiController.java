@@ -20,6 +20,7 @@ import com.cloudstaff.suiteview.dynamodb.model.UserItem;
 import com.cloudstaff.suiteview.forms.model.AddCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddRemoveCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddUserFormModel;
+import com.cloudstaff.suiteview.forms.model.ImageSearchForm;
 import com.cloudstaff.suiteview.forms.model.userSearchForm;
 import com.cloudstaff.suiteview.service.CameraService;
 import com.cloudstaff.suiteview.service.ImageService;
@@ -128,6 +129,15 @@ public class SuiteViewApiController {
 	public @ResponseBody List<ImageItem> test (){
 		return imageService.getImageByCameraByDate("crk90-ctv-008","2018-02-16");
 		
+	}
+	@RequestMapping(value="/searchImageByCDT",method=RequestMethod.POST)
+	public @ResponseBody List<ImageItem> searchImageByByCDT(@RequestBody  ImageSearchForm im,HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		if(key!=null && userService.getUserByKey(key).getAdmin().equalsIgnoreCase("Y")){
+			return imageService.getImageByCameraByDate(im.getCameraName(), im.getDate());
+		}else{
+			 return null;
+		}
 	}
 	
 }

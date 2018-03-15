@@ -36,7 +36,31 @@ public class ImageItemDao extends AbstractItemDao{
 		// TODO Auto-generated method stub
 		return TABLE;
 	}
-	public List<ImageItem> getImageByDate(String cameraName,String date){
+	public List<ImageItem> getImageByDate(String cameraName,String date,String date2){
+		ObjectMapper mapper = new ObjectMapper();
+		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
+		
+		try{
+			Table table = dynamoDB.getTable(this.getTable());
+			Map<String, String> expressionAttributeNames = new HashMap<String, String>();
+			expressionAttributeNames.put("#date", "date");
+			QuerySpec spec = new QuerySpec().withKeyConditionExpression("cameraName = :v_cameraName and #date between :v_date1 and :v_date2" )
+					.withValueMap(new ValueMap().withString(":v_cameraName", cameraName)
+							.withString(":v_date1", date)
+							.withString(":v_date2", date2)).withNameMap(expressionAttributeNames);
+			ItemCollection<QueryOutcome> items = table.query(spec);
+			Iterator<Item> iterator = items.iterator();
+			List<ImageItem> list = new  ArrayList<ImageItem>();
+			while (iterator.hasNext()) {
+			  list.add(mapper.readValue(iterator.next().toJSONPretty(), ImageItem.class));
+			}
+			return list;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public List<ImageItem> getImageByDate(String cameraName,String date,String date2,String fromHour, String fromMinute, String toHour,String toMinute){
 		ObjectMapper mapper = new ObjectMapper();
 		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
 		
@@ -48,10 +72,10 @@ public class ImageItemDao extends AbstractItemDao{
 			QuerySpec spec = new QuerySpec().withKeyConditionExpression("cameraName = :v_cameraName and #date between :v_date1 and :v_date2" )
 					.withFilterExpression("#hour between :v_hour1 and :v_hour2")
 					.withValueMap(new ValueMap().withString(":v_cameraName", cameraName)
-							.withString(":v_date1", "2018-02-13")
-							.withString(":v_date2", "2018-02-14")
-							.withString(":v_hour1", "16")
-							.withString(":v_hour2", "21")).withNameMap(expressionAttributeNames);
+							.withString(":v_date1", date)
+							.withString(":v_date2", date2)
+							.withString(":v_hour1", fromHour)
+							.withString(":v_hour2", toHour)).withNameMap(expressionAttributeNames);
 			ItemCollection<QueryOutcome> items = table.query(spec);
 			Iterator<Item> iterator = items.iterator();
 			List<ImageItem> list = new  ArrayList<ImageItem>();
