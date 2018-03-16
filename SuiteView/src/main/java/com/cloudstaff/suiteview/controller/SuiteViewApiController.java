@@ -100,9 +100,18 @@ public class SuiteViewApiController {
 		}else{
 			 return new ArrayList<String>();
 		}
-		
-		
-		
+	}
+	@RequestMapping("getCameraUser")
+	public @ResponseBody List<String> getCameraUser(HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		UserItem item =userService.getUserByKey(key);
+		if(key!=null && item.getAdmin().equalsIgnoreCase("Y")){
+			return cameraService.getAllCameraName();
+		}else if (key!=null ) {
+			return item.getCameralist();
+		}else{
+			 return new ArrayList<String>();
+		}
 	}
 	@RequestMapping(value="/removeCameraUser",method=RequestMethod.POST)
 	public @ResponseBody UserItem removeCameraUser (@RequestBody  AddRemoveCameraFormModel rm,HttpServletRequest request){

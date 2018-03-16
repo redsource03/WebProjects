@@ -20,4 +20,9 @@ export class CameraService{
             return response.json();
         });
     }
+    public getAllCameraUser(){
+        return this.http.get('/api/getCameraUser').map( (response: Response) => {
+            return response.json();
+        });
+    }
 }

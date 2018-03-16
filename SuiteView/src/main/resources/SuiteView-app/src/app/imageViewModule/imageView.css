@@ -2,3 +2,86 @@ i{
     float: right;
     color: #007bff;
 }
+.shell{
+    background: #FFFFFF;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 50px;
+    -moz-box-shadow:    3px 3px 5px 6px rgb(156, 156, 156);
+  -webkit-box-shadow: 3px 3px 5px 6px rgb(156, 156, 156);
+  box-shadow:         3px 3px 5px 6px rgb(156, 156, 156)dd;
+
+}
+.pr-wrap
+{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: none;
+}
+
+.show-pass-reset
+{
+    display: block !important;
+}
+
+.pass-reset
+{
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    margin-top: 1%;
+    z-index: 999;
+    padding: 20px 15px;
+}
+
+.pass-reset label
+{
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.pass-reset input[type="email"]
+{
+    width: 100%;
+    margin: 5px 0 0 0;
+    padding: 5px 10px;
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #000000;
+    outline: 0;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: #000000;
+    outline: 0;
+}
+
+.pass-reset input[type="submit"]
+{
+    width: 100%;
+    border: 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 10px;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.pass-reset input[type="submit"]:hover
+{
+    transition: background-color 0.5s ease;
+}
+#inner {
+    width: 50%;
+    margin: 0 auto;
+  }

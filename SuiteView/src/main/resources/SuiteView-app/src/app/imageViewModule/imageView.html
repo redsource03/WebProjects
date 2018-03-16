@@ -1,17 +1,61 @@
-<form class="form-inline">
-    <div class="form-group">
-        <div class="input-group">
-        <input class="form-control" placeholder="yyyy-mm-dd"
-                name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                    <i class="fa fa-calendar fa-2x"></i>
-            </button>
-        </div>
-        </div>
-    </div>
-</form>
+<block-ui> 
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 pass-reset">
+                    <div class = "shell">
+                        <div id="inner">
+                            <br>
+                            <label>Camera:</label>
+                            <select [(ngModel)]="selectedCamera" >
+                                <option *ngFor="let cam of camArry" value= {{cam}}>{{cam}}</option>
+                            </select>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                            name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                                <i class="fa fa-calendar fa-2x"></i>
+                                        </button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </form>
 
-<label>From:</label><ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
-<label>To:</label><ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker>
-<button class="btn btn-sm btn-outline-primary" (click)="searchImage()">Search</button>
+                            <label>From:</label><ngb-timepicker [(ngModel)]="fromTime"></ngb-timepicker>
+                            <label>To:</label><ngb-timepicker [(ngModel)]="toTime"></ngb-timepicker>
+                            <button class="btn btn-sm btn-outline-primary" (click)="searchImage(content)">Search</button>
+
+
+
+                            <ng-template #content let-c="close" let-d="dismiss" >
+                                    <div class="modal-header">
+                                    <h4 class="modal-title">{{selectedCamera}}</h4>
+                                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ngb-carousel>
+                                                <ng-template ngbSlide *ngFor="let image of imageArr;let index = index; trackBy:trackByIndex;">
+                                                
+                                                        <img  src="{{image.webUrl}}"  style ="margin-left: 25px;" width="720"src="" alt="Random first slide">
+                                                        <div class="carousel-caption">
+                                                        <h3>{{image.date}}</h3>
+                                                        
+                                                        </div>
+                                                </ng-template>
+                                        </ngb-carousel>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+                                    </div>
+                                </ng-template>
+                                <br>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+</block-ui>
