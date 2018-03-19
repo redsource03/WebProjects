@@ -6,6 +6,8 @@ import { CameraService } from '../service/camera.service';
 import { Observable }     from 'rxjs/Observable';
 import {  BlockUI, NgBlockUI } from 'ng-block-ui';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'editUser',
     templateUrl: './editUser.html',
@@ -20,6 +22,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
     }
     public camArry= [];
+    admin;
+    active;
     public user:EditUserModel = new EditUserModel();
     closeResult: string;
 
@@ -51,6 +55,16 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
                 this.user = new EditUserModel();
               
               this.user=model;
+              if(this.user!=null && this.user.admin=='Y'){
+                  this.admin=true;
+              }else{
+                this.admin=false;
+              }
+              if(this.user!=null && this.user.active=='Y'){
+                  this.active=true;
+              }else{
+                this.active=false;
+              }
               if(this.user.username==null){
                 this.blockUI.stop();
                 this.blockUI.start("Not Found");
@@ -81,6 +95,29 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
             (error) => console.log(error)
         );
     }
+    updateUser(){
+        
+        let isAdmin = this.admin ==true? 'Y' : 'N';
+        let isActive = this.active==true?'Y':'N';
+        let userJson="{"+"\"username\":\""+this.user.username+"\","+"\"active\":\""+isActive+"\",\"admin\":\""+isAdmin+"\""+"}";
+        this.userService.updateUser(userJson).subscribe(
+            (model: any) => {
+            },
+            (error) => console.log(error)
+        );
+    }
+    resetpassword(){
+        let newPass=this.randomChar();
+        let userJson="{"+"\"username\":\""+this.user.username+"\","+"\"password\":\""+newPass+"\""+"}";
+        this.userService.updateUser(userJson).subscribe(
+            (model: any) => {
+                alert("Password has been reset \n New password:"+newPass);
+            },
+            (error) => console.log(error)
+        );
+       
+        
+    }
     remove(user,cam){
         this.blockUI.start("Removing Camera...");
         this.userService.removeCameraFromUser(user,cam).subscribe(
@@ -110,5 +147,15 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
             (error) => console.log(error)
         );
     }
+    private randomChar(){
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < 8; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+    }
+    
      
   }

@@ -2,7 +2,7 @@
     <div class = "shell">
 <div class="container-flow spacing pass-reset" >
     <div class="row">
-        <div class="col-xs-6" style="width: 40%">
+        <div class="col-xs-6" style="margin: 0 auto">
             <div>
                 <form #userSearchForm="ngForm" (ngSubmit)="onFormSubmit(userSearchForm)" name="userSearchForm">
                     <input type="text" class="field" placeholder="Search username" style="width: 300px" name="username" ngModel required #username="ngModel"/>
@@ -22,6 +22,14 @@
             </div>
             <div>
                 <label class="headersmall">{{user.email}}</label>
+            </div>
+            <div *ngIf="user.email!=null" >
+            
+                <input type="checkbox" [(ngModel)]="admin" (ngModelChange)="updateUser()" /><label class="headersmall">Admin</label>
+                <input type="checkbox" [(ngModel)]="active" (ngModelChange)="updateUser()" /><label class="headersmall">Active</label>
+                <br>
+                <br>
+                <button class="btn btn-sm btn-outline-primary" (click)="resetpassword()">Reset Password</button>
             </div>
             <div><br><br>
                 <label class="headerbigbig" *ngIf="user.email!=null">Camera</label> <i *ngIf="user.email!=null" aria-hidden="true"></i>
@@ -61,10 +69,7 @@
               
               <pre>{{closeResult}}</pre>
         </div>
-        <div class="col-xs-6" style="margin-top: 55px">
-            
-            asdm,12iu3y12ui3v129833475vo24ui5yb92vb 523 3jhasjkdhasdkj
-        </div>
+        
     </div>
 </div>
 </div>

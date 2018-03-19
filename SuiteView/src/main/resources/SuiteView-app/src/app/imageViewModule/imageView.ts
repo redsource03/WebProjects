@@ -49,7 +49,6 @@ export class ImageViewComponent implements OnInit{
           (model: any) => {
             this.blockUI.stop();
             this.blockUI.start(model.Result);
-            console.log(model);
             this.imageArr=model;
             this.modalService.open(content,{ size: 'lg' }).result.then((result) => {
                 this.closeResult = `Closed with: ${result}`;
@@ -62,6 +61,9 @@ export class ImageViewComponent implements OnInit{
           },
           (error) => console.log(error)
       );
+  }
+  deleteImage(objectKey){
+    console.log(objectKey);
   }
 
     private getDismissReason(reason: any): string {

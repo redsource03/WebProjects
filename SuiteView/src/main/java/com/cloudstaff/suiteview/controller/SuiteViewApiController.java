@@ -68,6 +68,19 @@ public class SuiteViewApiController {
 		
 		
 	}
+	@RequestMapping(value="/updateUser" , method=RequestMethod.POST)
+	public @ResponseBody String updateUser (@RequestBody  AddUserFormModel uform,HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		if(key!=null && userService.getUserByKey(key).getAdmin().equalsIgnoreCase("Y")){
+			userService.updateUser(uform);
+			return "{\"Result\":\"User has been updated\"}";
+			//return "{\"Result\":\""+userService.addUser(addUser)+"\"}";
+		}else{
+			 return "{\"Result\":\"User has no Access to this feature\"}";
+		}
+		
+		
+	}
 	@RequestMapping(value="/addCamera",method=RequestMethod.POST)
 	public @ResponseBody String addCamera (@RequestBody AddCameraFormModel addCamera,HttpServletRequest request){
 		String key =SessionUtil.isAlreadyLogin(request);

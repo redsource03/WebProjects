@@ -9,6 +9,8 @@ public class AddUserFormModel {
 	String cPassword;
 	String account;
 	String jobRole;
+	String active;
+	String admin;
 	public String getFname() {
 		return fname;
 	}
@@ -56,6 +58,18 @@ public class AddUserFormModel {
 	}
 	public void setcPassword(String cPassword) {
 		this.cPassword = cPassword;
+	}
+	public String getActive() {
+		return active;
+	}
+	public void setActive(String active) {
+		this.active = active;
+	}
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
 	}
 	
 

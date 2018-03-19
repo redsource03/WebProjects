@@ -98,14 +98,16 @@ public class UserService {
 	public String updateUser(AddUserFormModel uForm){
 		UserItem userDaoModel = new UserItem();
 		userDaoModel.setAccount(uForm.getAccount());
-		userDaoModel.setActive("Y"); //<--- needs to be change to userID of the admin
-		userDaoModel.setAdmin("N");//<------ Needs to be changed
+		userDaoModel.setActive(uForm.getActive()); //<--- needs to be change to userID of the admin
+		userDaoModel.setAdmin(uForm.getAdmin());//<------ Needs to be changed
 		// create a java calendar instance
 		userDaoModel.setEmail(uForm.getEmail());
 		userDaoModel.setFirstname(uForm.getFname());
 		userDaoModel.setJobrole(uForm.getJobRole());
 		userDaoModel.setLastname(uForm.getLname());
-		//userDaoModel.setPassword(DigestUtils.sha256Hex(uForm.getPassword()));
+		if(uForm.getPassword()!=null){
+			userDaoModel.setPassword(DigestUtils.sha256Hex(uForm.getPassword()));
+		}	
 		userDaoModel.setUsername(uForm.getUsername());
 		userDaoModel.setUserkey(DigestUtils.sha256Hex(uForm.getUsername()));
 		

@@ -6,6 +6,8 @@ export class EditUserModel{
     email:string;
     jobrole:string;
     account:string;
+    admin:string;
+    active:string;
     constructor(){
         
     }
