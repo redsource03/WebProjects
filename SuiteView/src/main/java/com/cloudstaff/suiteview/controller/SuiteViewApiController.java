@@ -143,7 +143,7 @@ public class SuiteViewApiController {
 	public @ResponseBody List<ImageItem> searchImageByByCDT(@RequestBody  ImageSearchForm im,HttpServletRequest request){
 		String key =SessionUtil.isAlreadyLogin(request);
 		if(key!=null && userService.getUserByKey(key).getAdmin().equalsIgnoreCase("Y")){
-			return imageService.getImageByCameraByDate(im.getCameraName(), im.getDate());
+			return imageService.getImageByCameraByDate(im.getCameraName(), im.getDate(),im.getFromHour(),im.getFromMinute(),im.getToHour(),im.getToMinute());
 		}else{
 			 return null;
 		}

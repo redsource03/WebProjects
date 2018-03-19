@@ -68,14 +68,14 @@ public class ImageItemDao extends AbstractItemDao{
 			Table table = dynamoDB.getTable(this.getTable());
 			Map<String, String> expressionAttributeNames = new HashMap<String, String>();
 			expressionAttributeNames.put("#date", "date");
-			expressionAttributeNames.put("#hour", "hour");
+			
+
 			QuerySpec spec = new QuerySpec().withKeyConditionExpression("cameraName = :v_cameraName and #date between :v_date1 and :v_date2" )
-					.withFilterExpression("#hour between :v_hour1 and :v_hour2")
+					
 					.withValueMap(new ValueMap().withString(":v_cameraName", cameraName)
-							.withString(":v_date1", date)
-							.withString(":v_date2", date2)
-							.withString(":v_hour1", fromHour)
-							.withString(":v_hour2", toHour)).withNameMap(expressionAttributeNames);
+							.withString(":v_date1", date+"T"+fromHour+":"+fromMinute+":00Z")
+							.withString(":v_date2", date+"T"+toHour+":"+toMinute+":00Z")
+							).withNameMap(expressionAttributeNames);
 			ItemCollection<QueryOutcome> items = table.query(spec);
 			Iterator<Item> iterator = items.iterator();
 			List<ImageItem> list = new  ArrayList<ImageItem>();

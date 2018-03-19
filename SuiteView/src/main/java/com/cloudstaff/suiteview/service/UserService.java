@@ -108,11 +108,7 @@ public class UserService {
 		//userDaoModel.setPassword(DigestUtils.sha256Hex(uForm.getPassword()));
 		userDaoModel.setUsername(uForm.getUsername());
 		userDaoModel.setUserkey(DigestUtils.sha256Hex(uForm.getUsername()));
-		ArrayList<String> list = new ArrayList<>();
-		list.add("ASD1");
-		list.add("ASD2");
-		list.add("ASD3");
-		userDaoModel.setCameralist(list);
+		
 		try{
 
 			userDao.update(userDaoModel);

@@ -1,7 +1,6 @@
 package com.cloudstaff.suiteview.service;
 
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -9,11 +8,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.cloudstaff.suiteview.dynamodb.model.ImageItem;
 import com.cloudstaff.suiteview.dynamodb.repositories.ImageItemDao;
@@ -21,6 +22,7 @@ import com.cloudstaff.suiteview.dynamodb.repositories.ImageItemDao;
 
 @Service("imageService")
 public class ImageService {
+	private final static String BUCKET_NAME="imagessuiteview";
 	@Autowired
 	ImageItemDao imageItemDao;
 	@Autowired
@@ -116,13 +118,28 @@ public class ImageService {
 		milliSeconds += 7*24*60*60*1000; // Add 1 hour.
 		expiration.setTime(milliSeconds);
 		GeneratePresignedUrlRequest generatePresignedUrlRequest = 
-			    new GeneratePresignedUrlRequest("imagessuiteview", item.getObjectKey());
+			    new GeneratePresignedUrlRequest(BUCKET_NAME, item.getObjectKey());
 		generatePresignedUrlRequest.setMethod(HttpMethod.GET); 
 		generatePresignedUrlRequest.setExpiration(expiration);
 		URL url = s3client.generatePresignedUrl(generatePresignedUrlRequest); 
 		item.setWebUrl(url.toString());
 		item.setSignedUrlExp(expDt);
 		imageItemDao.update(item);
+	}
+	private void deleteS3Image (AmazonS3 s3client,String objectKey){
+		try {
+			s3client.deleteObject(new DeleteObjectRequest(BUCKET_NAME, objectKey));
+        } catch (AmazonServiceException ase) {
+            System.out.println("Caught an AmazonServiceException.");
+            System.out.println("Error Message:    " + ase.getMessage());
+            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+            System.out.println("Error Type:       " + ase.getErrorType());
+            System.out.println("Request ID:       " + ase.getRequestId());
+        } catch (AmazonClientException ace) {
+            System.out.println("Caught an AmazonClientException.");
+            System.out.println("Error Message: " + ace.getMessage());
+        }
 	}
 
 }
