@@ -31,32 +31,7 @@ public class UserItemDao extends AbstractItemDao{
 	private static final String TABLE="UsersSuiteView";
 	@Autowired
 	AmazonDynamoDB amazonDynamoDB;
-	/*public boolean save(UserItem u){
-		try{
-			ArrayList<String> camList = new ArrayList<String>();
-			camList.add("CAM1");
-			camList.add("CAM2");
-			camList.add("CAM99");
-			DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
-			Table table = dynamoDB.getTable(TABLE);
-			Item item = new Item().withPrimaryKey("userKey", u.getUserKey())
-					.withString("username", u.getUsername())
-					.withString("firstname", u.getFirstname())
-					.withString("lastname", u.getLastname())
-					.withString("password", u.getPassword())
-					.withString("email",u.getEmail())
-					.withString("active",u.getActive())
-					.withString("jobrole", u.getJobrole())
-					.withString("account", u.getAccount())
-					.withString("admin", u.getAdmin())
-					.withList("cameralist", camList);
-			table.putItem(item);
-		}catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}*/
+	
 	public UserItem getUserByUsername(String username )throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
@@ -75,61 +50,6 @@ public class UserItemDao extends AbstractItemDao{
 		
 		return null;
 	}
-	/*public boolean updateUser(UserItem item){
-		try{
-			Class myClass = UserItem.class;
-			for (Method method: myClass.getMethods()){
-				if(method.getName().contains("get")){
-				System.out.println(method.invoke(item, null));
-				}
-			}
-			Map<String,AttributeValue> key =new HashMap<>();
-			key.put("userKey", new AttributeValue().withS(item.getUserKey()));
-			Map<String, AttributeValue> attributeValues = new HashMap<>();
-			UpdateItemRequest updateItemRequest = new UpdateItemRequest();
-			updateItemRequest.withTableName(TABLE).withKey(key);
-			String expression ="set";
-			if(!StringUtils.isNullOrEmpty(item.getFirstname())){
-				attributeValues.put(":firstname", new AttributeValue().withS(item.getFirstname()));
-				expression +=" firstname=:firstname";
-			}
-			if(!StringUtils.isNullOrEmpty(item.getLastname())){
-				attributeValues.put(":lastname", new AttributeValue().withS(item.getLastname()));
-				expression += "set".equals(expression)? " lastname=:lastname":" ,lastname=:lastname";
-			}
-			if(!StringUtils.isNullOrEmpty(item.getPassword())){
-				attributeValues.put(":password", new AttributeValue().withS(item.getPassword()));
-				expression += "set".equals(expression)? " password=:password":" ,password=:password";
-			}
-			if(item.getCameralist()!=null && item.getCameralist().size()>0){
-				attributeValues.put(":cameralist", new AttributeValue().withSS(item.getCameralist()));
-				expression += "set".equals(expression)? " cameralist=:cameralist":" ,cameralist=:cameralist";
-			}
-			if(!StringUtils.isNullOrEmpty(item.getActive())){
-				attributeValues.put(":active", new AttributeValue().withS(item.getActive()));
-				expression += "set".equals(expression)? " active=:active":" ,active=:active";
-			}
-			if(!StringUtils.isNullOrEmpty(item.getJobrole())){
-				attributeValues.put(":jobrole", new AttributeValue().withS(item.getJobrole()));
-				expression += "set".equals(expression)? " jobrole=:jobrole":" ,jobrole=:jobrole";
-			}
-			if(!StringUtils.isNullOrEmpty(item.getAccount())){
-				attributeValues.put(":account", new AttributeValue().withS(item.getAccount()));
-				expression += "set".equals(expression)? " account=:account":" ,account=:account";
-			}
-			updateItemRequest.withUpdateExpression(expression);
-			updateItemRequest.withExpressionAttributeValues(attributeValues);
-			UpdateItemResult updateItemResult = amazonDynamoDB.updateItem(updateItemRequest);
-			if(updateItemResult!=null){
-				return true;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		
-		return false;
-	}*/
 	@Override
 	protected String getTable() {
 		// TODO Auto-generated method stub

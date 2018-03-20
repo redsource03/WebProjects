@@ -8,7 +8,11 @@ import { AppComponent } from './app.component';
 import { addUserComponent } from './addUserModule/addUser';
 import {addCameraComponent} from './addCameraModule/addCamera';
 import {editUserComponent} from './editUserModule/editUser';
-import {ImageViewComponent}from './imageViewModule/imageView'
+import {ImageViewComponent}from './imageViewModule/imageView';
+import {AdminViewComponent} from './adminViewModule/adminView';
+import {UserViewComponent} from './userViewModule/userView';
+import {ChangeProfileComponent} from './changeProfileModule/changeProfile';
+
 import { FormsModule } from '@angular/forms';
 
 import { UserService} from "./service/user.service";
@@ -21,14 +25,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
-    AppComponent,addUserComponent,EqualValidator,addCameraComponent,editUserComponent,ImageViewComponent
+    AppComponent,addUserComponent,EqualValidator,addCameraComponent,editUserComponent,ImageViewComponent,AdminViewComponent,UserViewComponent,ChangeProfileComponent
   ],
   imports: [NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,
     BlockUIModule,
-    
   ],
   providers: [UserService,CameraService,ImageService],
   bootstrap: [AppComponent]

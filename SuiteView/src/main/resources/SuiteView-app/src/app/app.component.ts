@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input,NgModule,OnInit } from '@angular/core';
+import { UserService } from './service/user.service';
 
 
 @Component({
@@ -6,6 +7,16 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent implements OnInit{
+  title = 'SuiteView';
+  user:any;
+  constructor(private userService: UserService) {}
+  ngOnInit() {
+    this.userService.getCurrentUser().subscribe(
+      (model: any) => {
+        this.user=model;
+      },
+      (error) => console.log(error)
+  );
+    }
 }

@@ -53,4 +53,12 @@ export class UserService{
                     return response.json();
                 });
     }
+    public getCurrentUser(){
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/getCurrentUser', options)
+                   .map( (response: Response) => {
+                    return response.json();
+                });
+    }
 }

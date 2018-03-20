@@ -108,7 +108,7 @@ public class UserService {
 		if(uForm.getPassword()!=null){
 			userDaoModel.setPassword(DigestUtils.sha256Hex(uForm.getPassword()));
 		}	
-		userDaoModel.setUsername(uForm.getUsername());
+		//userDaoModel.setUsername(uForm.getUsername());
 		userDaoModel.setUserkey(DigestUtils.sha256Hex(uForm.getUsername()));
 		
 		try{

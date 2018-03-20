@@ -6,7 +6,7 @@ import {  ImageService} from '../service/image.service';
 import {CameraService} from '../service/camera.service'
 
 import { Observable }     from 'rxjs/Observable';
-import {  BlockUI, NgBlockUI } from 'ng-block-ui';
+import {  BlockUI, NgBlockUI,Input } from 'ng-block-ui';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
@@ -29,6 +29,7 @@ export class ImageViewComponent implements OnInit{
   imageArr :ImageViewModel[]=[];
   camArry=[];
   selectedCamera:string;
+  @Input() user:any;
   @BlockUI() blockUI: NgBlockUI;
   constructor(private imageService: ImageService,private cameraService:CameraService, config: NgbCarouselConfig,private modalService: NgbModal) {
     config.interval = 10000;

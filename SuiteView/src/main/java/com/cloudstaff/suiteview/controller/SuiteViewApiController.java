@@ -71,10 +71,15 @@ public class SuiteViewApiController {
 	@RequestMapping(value="/updateUser" , method=RequestMethod.POST)
 	public @ResponseBody String updateUser (@RequestBody  AddUserFormModel uform,HttpServletRequest request){
 		String key =SessionUtil.isAlreadyLogin(request);
-		if(key!=null && userService.getUserByKey(key).getAdmin().equalsIgnoreCase("Y")){
+		UserItem item = userService.getUserByKey(key);
+		if(key!=null && item.getAdmin().equalsIgnoreCase("Y")){ //admin
 			userService.updateUser(uform);
 			return "{\"Result\":\"User has been updated\"}";
 			//return "{\"Result\":\""+userService.addUser(addUser)+"\"}";
+		}else if (item.getUsername().equals(uform.getUsername())){ // user update
+			uform.setUsername(item.getUsername());
+			userService.updateUser(uform);
+			return "{\"Result\":\"User has been updated\"}";
 		}else{
 			 return "{\"Result\":\"User has no Access to this feature\"}";
 		}
@@ -99,6 +104,19 @@ public class SuiteViewApiController {
 				u= new UserItem();
 			}
 			return u;
+		}else{
+			 return new UserItem();
+		}
+		
+		
+	}
+	@RequestMapping(value="/getCurrentUser",method=RequestMethod.POST)
+	public @ResponseBody UserItem getCurrentUser (HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		UserItem item =userService.getUserByKey(key);
+		item.setPassword("");
+		if(key!=null){
+			return item;
 		}else{
 			 return new UserItem();
 		}
@@ -155,11 +173,19 @@ public class SuiteViewApiController {
 	@RequestMapping(value="/searchImageByCDT",method=RequestMethod.POST)
 	public @ResponseBody List<ImageItem> searchImageByByCDT(@RequestBody  ImageSearchForm im,HttpServletRequest request){
 		String key =SessionUtil.isAlreadyLogin(request);
-		if(key!=null && userService.getUserByKey(key).getAdmin().equalsIgnoreCase("Y")){
+		UserItem item =userService.getUserByKey(key);
+		if(key!=null && item.getAdmin().equalsIgnoreCase("Y")){
 			return imageService.getImageByCameraByDate(im.getCameraName(), im.getDate(),im.getFromHour(),im.getFromMinute(),im.getToHour(),im.getToMinute());
+		}else if(item.getCameralist()!=null){
+			for(int i=0;i<item.getCameralist().size();i++){ //Not admin but have access
+				if(item.getCameralist().get(i).equalsIgnoreCase(im.getCameraName())){
+					return imageService.getImageByCameraByDate(im.getCameraName(), im.getDate(),im.getFromHour(),im.getFromMinute(),im.getToHour(),im.getToMinute());
+				}
+			}
 		}else{
 			 return null;
 		}
+		 return null;
 	}
 	
 }
