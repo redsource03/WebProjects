@@ -1,0 +1,58 @@
+
+<div class="container-fluid" style="background-color: #0658b1;min-height: 60px">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: #0658b1; float:right">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+    </div>
+    <div class="container-fluid">
+    
+    <div>
+       <!--<div class="collapse navbar-collapse" id="navbarToggleExternalContent" style="max-width: 120px;">-->
+        <div  class = "sidebar" style="width: 185px;float: left;">
+        <ul class="nav nav-tabs " role="tablist"> 
+        <li class="nav-item active">
+            <a class="nav-link" href="#home" role="tab" data-toggle="tab">Dashboard &nbsp;&nbsp;<i class="fa fa-line-chart fa-2x"></i></a>
+          </li>
+          <li class="nav-item ">
+              <a class="nav-link" href="#addUser" role="tab" data-toggle="tab">Add User &nbsp;&nbsp;<i class="fa fa-user-plus fa-2x" aria-hidden="true"></i> </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#addCamera" role="tab" data-toggle="tab">Add Camera&nbsp;&nbsp;<i class="fa fa-camera-retro fa-2x" aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#editUser" role="tab" data-toggle="tab">Edit User&nbsp;&nbsp; <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cameraview" role="tab" data-toggle="tab">Camera View&nbsp;&nbsp;<i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Settings&nbsp;&nbsp;<i class="fa fa-cogs fa-2x" aria-hidden="true"></i></a>
+            </li>
+        </ul>
+      </div>
+      <div class= "tab-content "  style="margin-left: 185px;" >
+              <div id="home" role="tabpanel"  class="tab-pane fade in active show">
+                  <p class="h1 text-center">THIS WILL BE DASHBOARD PAGE.. containing camera status if online, last picture sent etc.. 
+              put user stats? i.e count? etc? Info graphics? maybe the google map location of the camera?
+              server health? usage? Put AWS s3 storage capacity monitoring? 
+            </p>
+          </div>
+          <div id="addUser" role="tabpanel" class="tab-pane fade">
+            <addUser></addUser>
+            </div>
+              <div id="addCamera" role="tabpanel"  class="tab-pane fade">
+            <addCamera></addCamera>
+          </div>
+          <div id="editUser" role="tabpanel"  class="tab-pane fade">
+            <editUser></editUser>
+          </div>
+          <div id="cameraview" role="tabpanel"  class="tab-pane fade">
+              <imageView [user]="user"></imageView>
+          </div>
+          
+        </div>
+    </div>
+    </div>
+    

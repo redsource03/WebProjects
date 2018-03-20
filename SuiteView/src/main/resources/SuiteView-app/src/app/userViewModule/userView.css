@@ -1,0 +1,24 @@
+div.sidebar li
+{
+    width: 100%;
+    max-width: 200px;
+    min-width: 167px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+.sidebar a {
+    border-color: white;
+}
+div.sidebar{
+    min-height: 1080px;
+    border-right: 1px solid #ddd;
+}
+div.sidebar ul{
+    
+    border-bottom: 0px;
+}
+i{
+    float: right;
+    color: #007bff;
+}
