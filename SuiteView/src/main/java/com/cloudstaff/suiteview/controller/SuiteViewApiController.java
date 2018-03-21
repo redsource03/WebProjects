@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.cloudstaff.suiteview.dynamodb.model.ImageItem;
 import com.cloudstaff.suiteview.dynamodb.model.ThreadCommentItem;
 import com.cloudstaff.suiteview.dynamodb.model.ThreadItem;
@@ -23,6 +22,7 @@ import com.cloudstaff.suiteview.forms.model.AddCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddRemoveCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddUserFormModel;
 import com.cloudstaff.suiteview.forms.model.ImageSearchForm;
+import com.cloudstaff.suiteview.forms.model.ThreadForm;
 import com.cloudstaff.suiteview.forms.model.userSearchForm;
 import com.cloudstaff.suiteview.service.CameraService;
 import com.cloudstaff.suiteview.service.ImageService;
@@ -50,6 +50,13 @@ public class SuiteViewApiController {
 		ThreadCommentItem item2 = new ThreadCommentItem();
 		threadService.getThreadComment("46606452-54e8-405b-b0af-e46327b7e154");
 		threadService.saveComment("46606452-54e8-405b-b0af-e46327b7e154", "redsource", "adddeddasdsadasd asdawdsdawaa");
+		
+		ThreadForm tf = new ThreadForm();
+		tf.setComment("AUTOMATIC");
+		tf.setResolved("N");
+		tf.setSubject("AUTOCREATED");
+		tf.setUsername("redsource");
+		threadService.createThread(tf);
 		/*item.setDateresolved("2018-03-23");
 		item.setResolved("Y");
 		item.setSubject("THIS is a test");
@@ -209,7 +216,22 @@ public class SuiteViewApiController {
 		}
 		 return null;
 	}
-	@RequestMapping(value="/saveThread",method=RequestMethod.POST)
-	public void saveThread(){}
+	@RequestMapping(value="/createThread",method=RequestMethod.POST)
+	public void createThread(@RequestBody  ThreadForm tf,HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		UserItem item =userService.getUserByKey(key);
+		if(item!=null){
+			tf.setUsername(item.getUsername());
+			threadService.createThread(tf);
+		}
+	}
+	@RequestMapping(value="/createComment",method=RequestMethod.POST)
+	public void createComment(@RequestBody ThreadForm tf, HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		UserItem item =userService.getUserByKey(key);
+		if(item!=null){
+			threadService.saveComment(tf.getThreadkey(), item.getUsername(), tf.getComment());;
+		}
+	}
 	
 }

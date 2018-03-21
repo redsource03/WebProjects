@@ -7,6 +7,7 @@ public class ThreadForm {
 	private String timestamp;
 	private String username;
 	private String subject;
+	private String comment;
 	public String getThreadkey() {
 		return threadkey;
 	}
@@ -42,6 +43,12 @@ public class ThreadForm {
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	
