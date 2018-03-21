@@ -6,7 +6,7 @@ import {  ImageService} from '../service/image.service';
 import {CameraService} from '../service/camera.service'
 
 import { Observable }     from 'rxjs/Observable';
-import {  BlockUI, NgBlockUI,Input } from 'ng-block-ui';
+import {  BlockUI, NgBlockUI } from 'ng-block-ui';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
