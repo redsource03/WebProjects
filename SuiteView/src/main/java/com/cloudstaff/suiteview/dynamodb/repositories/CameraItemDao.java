@@ -80,17 +80,6 @@ public class CameraItemDao extends  AbstractItemDao{
 		}
 		return null;
 	}
-	private static String printItem(Map<String, AttributeValue> attributeList) throws JSONException{
-        JSONObject json = new JSONObject();
-        for (Map.Entry<String, AttributeValue> item : attributeList.entrySet()) {
-            String attributeName = item.getKey();
-            AttributeValue value = item.getValue();
-            if(value.getS()!=null){
-            	json.put(attributeName, value.getS());
-            }
-        }
-        return json.toString();
-    }
 	@Override
 	protected String getTable() {
 		// TODO Auto-generated method stub

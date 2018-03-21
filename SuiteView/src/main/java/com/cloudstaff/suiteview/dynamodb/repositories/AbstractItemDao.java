@@ -8,10 +8,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.ItemCollection;
@@ -88,20 +91,8 @@ public abstract class AbstractItemDao {
 	}
 	public <T extends AbstractItem>boolean save (T item){
 		try{
-			DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
-			Table table = dynamoDB.getTable(getTable());
-			Class myClass = item.getClass();
-			for (Method method: myClass.getMethods()){
-				if(method.getName().contains("get") && method.getName().contains("key")){
-					char[] chArr = method.getName().replaceAll("get", "").toCharArray();
-					chArr[0] = Character.toLowerCase(chArr[0]);
-					String s = new String(chArr);
-					Item item2 = new Item().withPrimaryKey(s,(String)method.invoke(item));
-					table.putItem(item2);
-					break;
-				}
-			}
-			update(item);
+			DynamoDBMapper mapper = new DynamoDBMapper(amazonDynamoDB);
+			mapper.save(item);
 		}catch (Exception e){
 			e.printStackTrace();
 			return false;
@@ -151,4 +142,16 @@ public abstract class AbstractItemDao {
 		
 		return false;
 	}
+
+	public static String printItem(Map<String, AttributeValue> attributeList) throws JSONException{
+        JSONObject json = new JSONObject();
+        for (Map.Entry<String, AttributeValue> item : attributeList.entrySet()) {
+            String attributeName = item.getKey();
+            AttributeValue value = item.getValue();
+            if(value.getS()!=null){
+            	json.put(attributeName, value.getS());
+            }
+        }
+        return json.toString();
+    }
 }

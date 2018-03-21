@@ -16,6 +16,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.cloudstaff.suiteview.dynamodb.model.ImageItem;
+import com.cloudstaff.suiteview.dynamodb.model.ThreadCommentItem;
+import com.cloudstaff.suiteview.dynamodb.model.ThreadItem;
 import com.cloudstaff.suiteview.dynamodb.model.UserItem;
 import com.cloudstaff.suiteview.forms.model.AddCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddRemoveCameraFormModel;
@@ -24,6 +26,7 @@ import com.cloudstaff.suiteview.forms.model.ImageSearchForm;
 import com.cloudstaff.suiteview.forms.model.userSearchForm;
 import com.cloudstaff.suiteview.service.CameraService;
 import com.cloudstaff.suiteview.service.ImageService;
+import com.cloudstaff.suiteview.service.ThreadService;
 import com.cloudstaff.suiteview.service.UserService;
 import com.cloudstaff.suiteview.utils.SessionUtil;
 
@@ -37,10 +40,29 @@ public class SuiteViewApiController {
 	@Autowired
 	ImageService imageService;
 	@Autowired
+	ThreadService threadService;
+	@Autowired
 	AmazonDynamoDB amazonDynamoDB;
 	@RequestMapping("/you")
 	public  @ResponseBody String fundamentals() throws Exception{
 		DynamoDBMapper mapper = new DynamoDBMapper(amazonDynamoDB);
+		ThreadItem item = new ThreadItem();
+		ThreadCommentItem item2 = new ThreadCommentItem();
+		threadService.getThreadComment("46606452-54e8-405b-b0af-e46327b7e154");
+		threadService.saveComment("46606452-54e8-405b-b0af-e46327b7e154", "redsource", "adddeddasdsadasd asdawdsdawaa");
+		/*item.setDateresolved("2018-03-23");
+		item.setResolved("Y");
+		item.setSubject("THIS is a test");
+		item.setTimestamp("2018-04-02T12:00:48Z");s
+		item.setUsername("redsource2");
+		item.setThreadkey("46606452-54e8-405b-b0af-e46327b7e154");
+		
+		item2.setThreadkey(item.getThreadkey());
+		item2.setTimestamp(item.getTimestamp());
+		item2.setUsername(item.getUsername());
+		item2.setComment("WHAT THE FUCK IT WORKED");
+		
+		mapper.save(item2);
 		UserItem item = new UserItem();
 		item.setUserkey("newtest");
 		
@@ -52,8 +74,8 @@ public class SuiteViewApiController {
 			for (int i = 0; i < itemList.size(); i++) {
 			    System.out.println(itemList.get(i).getUserkey());
 			    System.out.println(itemList.get(i).getUsername());
-			}
-
+			}*/
+		
 		
 		return "{\"Result\":\"OK\"}";
 	}
@@ -73,7 +95,7 @@ public class SuiteViewApiController {
 		String key =SessionUtil.isAlreadyLogin(request);
 		UserItem item = userService.getUserByKey(key);
 		if(key!=null && item.getAdmin().equalsIgnoreCase("Y")){ //admin
-			userService.updateUser(uform);
+			
 			return "{\"Result\":\"User has been updated\"}";
 			//return "{\"Result\":\""+userService.addUser(addUser)+"\"}";
 		}else if (item.getUsername().equals(uform.getUsername())){ // user update
@@ -187,5 +209,7 @@ public class SuiteViewApiController {
 		}
 		 return null;
 	}
+	@RequestMapping(value="/saveThread",method=RequestMethod.POST)
+	public void saveThread(){}
 	
 }
