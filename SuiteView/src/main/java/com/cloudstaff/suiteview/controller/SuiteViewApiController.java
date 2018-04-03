@@ -227,12 +227,31 @@ public class SuiteViewApiController {
 		return "{\"Result\":\"OK\"}";
 	}
 	@RequestMapping(value="/createComment",method=RequestMethod.POST)
-	public void createComment(@RequestBody ThreadForm tf, HttpServletRequest request){
+	public @ResponseBody String createComment(@RequestBody ThreadForm tf, HttpServletRequest request){
 		String key =SessionUtil.isAlreadyLogin(request);
 		UserItem item =userService.getUserByKey(key);
 		if(item!=null){
+			tf.setUsername(item.getUsername());
 			threadService.saveComment(tf);
 		}
+		return "{\"Result\":\"OK\"}";
 	}
-	
+	@RequestMapping(value="/getUserThread",method=RequestMethod.POST)
+	public @ResponseBody List<ThreadItem> getUserThread(HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		UserItem item =userService.getUserByKey(key);
+		if(item!=null){
+			return threadService.getThreadByUser(item);
+		}
+		return null;
+	}
+	@RequestMapping(value="/getThreadComment",method=RequestMethod.POST)
+	public @ResponseBody List<ThreadCommentItem> getThreadComment(@RequestBody ThreadForm tf,HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		UserItem item =userService.getUserByKey(key);
+		if(item!=null){
+			return threadService.getThreadComment(tf.getThreadkey());
+		}
+		return null;
+	}
 }

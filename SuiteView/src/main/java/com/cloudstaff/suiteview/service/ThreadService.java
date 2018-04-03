@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cloudstaff.suiteview.dynamodb.model.ThreadCommentItem;
 import com.cloudstaff.suiteview.dynamodb.model.ThreadItem;
+import com.cloudstaff.suiteview.dynamodb.model.UserItem;
 import com.cloudstaff.suiteview.dynamodb.repositories.ThreadCommentItemDao;
 import com.cloudstaff.suiteview.dynamodb.repositories.ThreadItemDao;
 import com.cloudstaff.suiteview.forms.model.ThreadForm;
@@ -49,8 +50,18 @@ public class ThreadService {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	public List<ThreadItem> getThreadByUser(UserItem item){
+		try{
+			if(item.getAdmin().equalsIgnoreCase("N")){
+				return threadItemDao.getAllThreadUser(item.getUsername());
+			}else{
+				return threadItemDao.getAllThread();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
-		
-		
+		return null;
 	}
 }

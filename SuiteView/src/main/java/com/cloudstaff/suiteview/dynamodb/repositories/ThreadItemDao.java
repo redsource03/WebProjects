@@ -66,5 +66,21 @@ public class ThreadItemDao extends AbstractItemDao{
 		}
 		return itemList;
 	}
+	public List<ThreadItem> getAllThread(){
+		ObjectMapper mapper = new ObjectMapper();
+		List<ThreadItem> itemList = new ArrayList<ThreadItem>();
+		ScanRequest scanRequest = new ScanRequest()
+				.withTableName(getTable());
+		ScanResult result = amazonDynamoDB.scan(scanRequest);
+		for (Map<String, AttributeValue> item : result.getItems()) {
+			try{
+				itemList.add( mapper.readValue(printItem(item), ThreadItem.class));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		  
+		}
+		return itemList;
+	}
 
 }
