@@ -47,12 +47,13 @@
                                                         </div>
                                                         <br>
                                                         <br>
+                                                        <createThread *ngIf="user.admin=='N'" style="margin-left:45%"></createThread>
                                                         <button *ngIf="user.admin=='Y'" class="btn btn-sm btn-outline-primary" (click)="deleteImage(image.objectKey)" style="margin-left:45%">Delete</button>
                                                 </ng-template>
                                         </ngb-carousel>
                                     </div>
                                     <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" (click)="c('Close click')">Close</button>
                                     </div>
                                 </ng-template>
                                 <br>
