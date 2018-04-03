@@ -1,0 +1,183 @@
+
+.wrap
+{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+p.form-title
+{
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 1%;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+p.form-header
+{
+    font-size: 40px;
+    font-weight: 800;
+    text-align: center;
+    color: #ddd;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+}
+
+form
+{
+    width: 400px;
+    margin: 0 auto;
+}
+
+.field
+{
+    width: -webkit-fill-available;
+    margin: 0;
+    padding: 5px 10px;
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    outline: 0;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: rgb(5, 5, 5);
+    outline: 0;
+}
+.blue{
+    background-color: #007bff;
+    border-color: #007bff;
+
+}
+.blue:hover{
+    background-color: #0056b3
+    ;
+    border-color: #0056b3
+    ;
+}
+.blue:focus{
+    box-shadow: 0 0 0 3px rgba(18, 72, 193, 0.5);
+}
+.error{
+    font-size: 8px;
+    color: #c70000;
+}
+
+form.login .remember-forgot
+{
+    float: left;
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+form.login .forgot-pass-content
+{
+    min-height: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+label, form.login a
+{
+    font-size: 12px;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+
+.pr-wrap
+{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: none;
+}
+
+.show-pass-reset
+{
+    display: block !important;
+}
+
+.pass-reset
+{
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    margin-top: 1%;
+    z-index: 999;
+    padding: 20px 15px;
+}
+
+.pass-reset label
+{
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.pass-reset input[type="email"]
+{
+    width: 100%;
+    margin: 5px 0 0 0;
+    padding: 5px 10px;
+    background: 0;
+    border: 0;
+    border-bottom: 1px solid #000000;
+    outline: 0;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: #000000;
+    outline: 0;
+}
+
+.pass-reset input[type="submit"]
+{
+    width: 100%;
+    border: 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 10px;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.pass-reset input[type="submit"]:hover
+{
+    transition: background-color 0.5s ease;
+}
+.posted-by
+{
+    position: absolute;
+    bottom: 26px;
+    margin: 0 auto;
+    color: #FFF;
+    background-color: rgba(0, 0, 0, 0.66);
+    padding: 10px;
+    left: 45%;
+}
+.shell{
+    background: #FFFFFF;
+    width: 600px;
+    margin: 0 auto;
+    border-radius: 50px;
+    -moz-box-shadow:    3px 3px 5px 6px rgb(156, 156, 156);
+  -webkit-box-shadow: 3px 3px 5px 6px rgb(156, 156, 156);
+  box-shadow:         3px 3px 5px 6px rgb(156, 156, 156)dd;
+
+}
+

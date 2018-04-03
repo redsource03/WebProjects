@@ -12,8 +12,9 @@ import {ImageViewComponent}from './imageViewModule/imageView';
 import {AdminViewComponent} from './adminViewModule/adminView';
 import {UserViewComponent} from './userViewModule/userView';
 import {ChangeProfileComponent} from './changeProfileModule/changeProfile';
-import {CreateThreadComponent} from './createThreadModule/createThread'
-
+import {CreateThreadComponent} from './createThreadModule/createThread';
+import {ThreadListComponent} from './threadListModule/threadList';
+import {ThreadContentComponent} from './threadContentModule/threadContent';
 import { FormsModule } from '@angular/forms';
 
 import { UserService} from "./service/user.service";
@@ -30,7 +31,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     AppComponent,addUserComponent,EqualValidator,addCameraComponent,editUserComponent,
     ImageViewComponent,AdminViewComponent,UserViewComponent,ChangeProfileComponent,
-    CreateThreadComponent
+    CreateThreadComponent,ThreadListComponent,ThreadContentComponent
   ],
   imports: [NgbModule.forRoot(),
     BrowserModule,

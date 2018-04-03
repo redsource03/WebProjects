@@ -1,0 +1,20 @@
+
+<div class="container-fluid">
+    
+    <div class="row">
+        <div class="col-md-12 pass-reset">
+                <createThread [user]="user" style="float:right;"> </createThread>
+            <div class = "shell">
+                <div id="inner">
+                    <table class="table table-striped">
+                    <tr *ngFor="let item of threadList;let index = index;trackBy:trackByIndex;">
+                        <td>
+                            <threadContent [thread]="item"></threadContent>
+                        </td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

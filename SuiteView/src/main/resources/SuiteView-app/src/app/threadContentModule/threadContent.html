@@ -1,0 +1,25 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">{{thread.subject}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+           
+            <div *ngFor="let item of comments;let index = index;trackBy:trackByIndex;">
+                    <div>{{item.username}}:{{item.comment}}
+                            <div style="float: right;">{{item.timestamp}}</div>
+                    </div>
+                    
+            </div>
+           <div>
+            <textarea rows="2" style="width:100%;margin-top:10px;" placeholder="Add comment"  [(ngModel)]="body"></textarea>
+          </div> 
+    </div>
+    <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="addComment()">Send</button>
+      <button type="button" class="btn btn-sm btn-outline-primary" (click)="c('Close click')">Close</button>
+    </div>
+  </ng-template>
+  <label (click)="open(content)">{{thread.subject}}</label>

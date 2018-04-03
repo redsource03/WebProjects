@@ -1,0 +1,24 @@
+<block-ui> 
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Contact Administrator</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+            <div> 
+             <input class="field" type="text" style="width:100%" placeholder="SUBJECT"  [(ngModel)]="subject">
+           </div> 
+           <div>
+            <textarea rows="4" style="width:100%;margin-top:10px;" placeholder="CONTENT"  [(ngModel)]="body"></textarea>
+          </div> 
+    </div>
+    <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="createThread()">Send</button>
+      <button type="button" class="btn btn-sm btn-outline-primary" (click)="c('Close click')">Close</button>
+    </div>
+  </ng-template>
+  <button  class="btn btn-sm btn-outline-primary" (click)="open(content)">Contact Admin</button>
+  <!--<i class="fa fa-plus-square fa-2x add"  aria-hidden="true" (click)="open(content)" style="margin-left: 10px;"></i>-->
+  </block-ui> 
