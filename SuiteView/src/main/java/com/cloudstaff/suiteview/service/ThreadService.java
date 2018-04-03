@@ -22,13 +22,13 @@ public class ThreadService {
 	public List<ThreadCommentItem> getThreadComment(String key){
 		return threadCommentItemDao.getThreadComment(key);
 	}
-	public void saveComment(String threadKey,String username,String comment){
+	public void saveComment(ThreadForm tf){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sss");
 		ThreadCommentItem item = new ThreadCommentItem();
-		item.setThreadkey(threadKey);
+		item.setThreadkey(tf.getThreadkey());
 		item.setTimestamp(sdf.format(new Date()));
-		item.setUsername(username);
-		item.setComment(comment);
+		item.setUsername(tf.getUsername());
+		item.setComment(tf.getComment());
 		threadCommentItemDao.save(item);
 	}
 	public void createThread(ThreadForm tf){

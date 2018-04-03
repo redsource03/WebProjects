@@ -45,5 +45,26 @@ public class ThreadItemDao extends AbstractItemDao{
 		}
 		return null;
 	}
+	public List<ThreadItem> getAllThreadUser(String username){
+		ObjectMapper mapper = new ObjectMapper();
+		List<ThreadItem> itemList = new ArrayList<ThreadItem>();
+		Map<String, AttributeValue> expressionAttributeValues = 
+			    new HashMap<String, AttributeValue>();
+		expressionAttributeValues.put(":username",new AttributeValue().withS(username));
+		ScanRequest scanRequest = new ScanRequest()
+				.withTableName(getTable())
+				.withFilterExpression("username = :username")
+				.withExpressionAttributeValues(expressionAttributeValues);
+		ScanResult result = amazonDynamoDB.scan(scanRequest);
+		for (Map<String, AttributeValue> item : result.getItems()) {
+			try{
+				itemList.add( mapper.readValue(printItem(item), ThreadItem.class));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		  
+		}
+		return itemList;
+	}
 
 }

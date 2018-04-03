@@ -49,7 +49,7 @@ public class SuiteViewApiController {
 		ThreadItem item = new ThreadItem();
 		ThreadCommentItem item2 = new ThreadCommentItem();
 		threadService.getThreadComment("46606452-54e8-405b-b0af-e46327b7e154");
-		threadService.saveComment("46606452-54e8-405b-b0af-e46327b7e154", "redsource", "adddeddasdsadasd asdawdsdawaa");
+		//threadService.saveComment("46606452-54e8-405b-b0af-e46327b7e154", "redsource", "adddeddasdsadasd asdawdsdawaa");
 		
 		ThreadForm tf = new ThreadForm();
 		tf.setComment("AUTOMATIC");
@@ -161,7 +161,7 @@ public class SuiteViewApiController {
 			 return new ArrayList<String>();
 		}
 	}
-	@RequestMapping("getCameraUser")
+	@RequestMapping("/getCameraUser")
 	public @ResponseBody List<String> getCameraUser(HttpServletRequest request){
 		String key =SessionUtil.isAlreadyLogin(request);
 		UserItem item =userService.getUserByKey(key);
@@ -217,20 +217,21 @@ public class SuiteViewApiController {
 		 return null;
 	}
 	@RequestMapping(value="/createThread",method=RequestMethod.POST)
-	public void createThread(@RequestBody  ThreadForm tf,HttpServletRequest request){
+	public @ResponseBody String createThread(@RequestBody  ThreadForm tf,HttpServletRequest request){
 		String key =SessionUtil.isAlreadyLogin(request);
 		UserItem item =userService.getUserByKey(key);
 		if(item!=null){
 			tf.setUsername(item.getUsername());
 			threadService.createThread(tf);
 		}
+		return "{\"Result\":\"OK\"}";
 	}
 	@RequestMapping(value="/createComment",method=RequestMethod.POST)
 	public void createComment(@RequestBody ThreadForm tf, HttpServletRequest request){
 		String key =SessionUtil.isAlreadyLogin(request);
 		UserItem item =userService.getUserByKey(key);
 		if(item!=null){
-			threadService.saveComment(tf.getThreadkey(), item.getUsername(), tf.getComment());;
+			threadService.saveComment(tf);
 		}
 	}
 	
