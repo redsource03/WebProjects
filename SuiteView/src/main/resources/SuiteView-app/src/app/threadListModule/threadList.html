@@ -3,7 +3,7 @@
     
     <div class="row">
         <div class="col-md-12 pass-reset">
-                <createThread [user]="user" style="float:right;"> </createThread>
+            <createThread *ngIf="user.admin=='N'" [user]="user" style="float:right;"> </createThread>
             <div class = "shell">
                 <div id="inner">
                     <table class="table table-striped">

@@ -48,7 +48,7 @@
                                                         <br>
                                                         <br>
                                                         <createThread *ngIf="user.admin=='N'" style="margin-left:45%"></createThread>
-                                                        <button *ngIf="user.admin=='Y'" class="btn btn-sm btn-outline-primary" (click)="deleteImage(image.objectKey)" style="margin-left:45%">Delete</button>
+                                                        <button *ngIf="user.admin=='Y'" class="btn btn-sm btn-outline-primary" (click)="deleteImage(image.cameraName,image.date,image.objectKey)" style="margin-left:45%">Delete</button>
                                                 </ng-template>
                                         </ngb-carousel>
                                     </div>

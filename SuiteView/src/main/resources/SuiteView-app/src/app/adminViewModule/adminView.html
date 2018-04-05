@@ -24,12 +24,12 @@
           <li class="nav-item">
             <a class="nav-link" href="#editUser" role="tab" data-toggle="tab">Edit User&nbsp;&nbsp; <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#cameraview" role="tab" data-toggle="tab">Camera View&nbsp;&nbsp;<i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="#">Settings&nbsp;&nbsp;<i class="fa fa-cogs fa-2x" aria-hidden="true"></i></a>
+           <li class="nav-item">
+              <a class="nav-link" href="#messages" role="tab" data-toggle="tab">Messages&nbsp;&nbsp;<i class="fa fa-comments fa-2x"></i></a>
             </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#cameraview" role="tab" data-toggle="tab">Maintenance&nbsp;&nbsp;<i class="fa fa-cogs fa-2x" aria-hidden="true"></i></a>
+          </li>
         </ul>
       </div>
       <div class= "tab-content "  style="margin-left: 185px;" >
@@ -50,6 +50,9 @@
           </div>
           <div id="cameraview" role="tabpanel"  class="tab-pane fade">
               <imageView [user]="user"></imageView>
+          </div>
+          <div id="messages" role="tabpanel"  class="tab-pane fade">
+              <threadList [user]="user"></threadList>
           </div>
           
         </div>

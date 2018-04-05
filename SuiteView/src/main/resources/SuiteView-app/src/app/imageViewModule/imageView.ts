@@ -63,8 +63,24 @@ export class ImageViewComponent implements OnInit{
           (error) => console.log(error)
       );
   }
-  deleteImage(objectKey){
-    console.log(objectKey);
+  deleteImage(camerName:string, date:string,objectKey:string){
+    this.blockUI.start("Delete Image...");
+        this.imageService.deleteImage(camerName,date,objectKey).subscribe(
+          (model: any) => {
+            this.blockUI.stop();
+            this.blockUI.start(model.Result);
+            this.imageService.searchImage(this.selectedCamera,this.model,this.fromTime,this.toTime).subscribe(
+              (model: any) => {
+                this.imageArr=model;
+              },
+              (error) => console.log(error)
+            );
+            setTimeout(() => {
+              this.blockUI.stop();
+            }, 2000);
+          },
+          (error) => console.log(error)
+      );
   }
 
     private getDismissReason(reason: any): string {
