@@ -21,6 +21,7 @@ import com.cloudstaff.suiteview.dynamodb.model.UserItem;
 import com.cloudstaff.suiteview.forms.model.AddCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddRemoveCameraFormModel;
 import com.cloudstaff.suiteview.forms.model.AddUserFormModel;
+import com.cloudstaff.suiteview.forms.model.ImageForm;
 import com.cloudstaff.suiteview.forms.model.ImageSearchForm;
 import com.cloudstaff.suiteview.forms.model.ThreadForm;
 import com.cloudstaff.suiteview.forms.model.userSearchForm;
@@ -45,44 +46,6 @@ public class SuiteViewApiController {
 	AmazonDynamoDB amazonDynamoDB;
 	@RequestMapping("/you")
 	public  @ResponseBody String fundamentals() throws Exception{
-		DynamoDBMapper mapper = new DynamoDBMapper(amazonDynamoDB);
-		ThreadItem item = new ThreadItem();
-		ThreadCommentItem item2 = new ThreadCommentItem();
-		threadService.getThreadComment("46606452-54e8-405b-b0af-e46327b7e154");
-		//threadService.saveComment("46606452-54e8-405b-b0af-e46327b7e154", "redsource", "adddeddasdsadasd asdawdsdawaa");
-		
-		ThreadForm tf = new ThreadForm();
-		tf.setComment("AUTOMATIC");
-		tf.setResolved("N");
-		tf.setSubject("AUTOCREATED");
-		tf.setUsername("redsource");
-		threadService.createThread(tf);
-		/*item.setDateresolved("2018-03-23");
-		item.setResolved("Y");
-		item.setSubject("THIS is a test");
-		item.setTimestamp("2018-04-02T12:00:48Z");s
-		item.setUsername("redsource2");
-		item.setThreadkey("46606452-54e8-405b-b0af-e46327b7e154");
-		
-		item2.setThreadkey(item.getThreadkey());
-		item2.setTimestamp(item.getTimestamp());
-		item2.setUsername(item.getUsername());
-		item2.setComment("WHAT THE FUCK IT WORKED");
-		
-		mapper.save(item2);
-		UserItem item = new UserItem();
-		item.setUserkey("newtest");
-		
-		DynamoDBQueryExpression<UserItem> queryExpression = new DynamoDBQueryExpression<UserItem>()
-			    .withHashKeyValues(item);
-
-			List<UserItem> itemList = mapper.query(UserItem.class, queryExpression);
-
-			for (int i = 0; i < itemList.size(); i++) {
-			    System.out.println(itemList.get(i).getUserkey());
-			    System.out.println(itemList.get(i).getUsername());
-			}*/
-		
 		
 		return "{\"Result\":\"OK\"}";
 	}
@@ -253,5 +216,35 @@ public class SuiteViewApiController {
 			return threadService.getThreadComment(tf.getThreadkey());
 		}
 		return null;
+	}
+	@RequestMapping(value="/deleteImage",method=RequestMethod.POST)
+	public @ResponseBody String deleteImage(@RequestBody ImageForm IF,HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		UserItem item =userService.getUserByKey(key);
+		try{
+			if(item!=null && item.getAdmin().equals("Y")){
+				imageService.deleteImage(IF);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return "{\"Result\":\"Failed to delete image.\"}";
+		} 
+		
+		return "{\"Result\":\"Image has been deleted.\"}";
+	}
+	@RequestMapping(value="/deleteImageBefore",method=RequestMethod.POST)
+	public @ResponseBody String deleteImageBefore(@RequestBody ImageForm IF,HttpServletRequest request){
+		String key =SessionUtil.isAlreadyLogin(request);
+		UserItem item =userService.getUserByKey(key);
+		try{
+			if(item!=null && item.getAdmin().equals("Y")){
+				imageService.deleteImageBefore(IF.getCameraName(), IF.getDate());;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return "{\"Result\":\"Failed to delete images.\"}";
+		} 
+		
+		return "{\"Result\":\"Images has been deleted.\"}";
 	}
 }

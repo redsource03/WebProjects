@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.document.DeleteItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
@@ -60,6 +62,29 @@ public class ImageItemDao extends AbstractItemDao{
 		}
 		return null;
 	}
+	public List<ImageItem> getImageByBeforeDate(String cameraName,String date){
+		ObjectMapper mapper = new ObjectMapper();
+		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
+		
+		try{
+			Table table = dynamoDB.getTable(this.getTable());
+			Map<String, String> expressionAttributeNames = new HashMap<String, String>();
+			expressionAttributeNames.put("#date", "date");
+			QuerySpec spec = new QuerySpec().withKeyConditionExpression("cameraName = :v_cameraName and #date < :v_date1" )
+					.withValueMap(new ValueMap().withString(":v_cameraName", cameraName)
+							.withString(":v_date1", date)).withNameMap(expressionAttributeNames);
+			ItemCollection<QueryOutcome> items = table.query(spec);
+			Iterator<Item> iterator = items.iterator();
+			List<ImageItem> list = new  ArrayList<ImageItem>();
+			while (iterator.hasNext()) {
+			  list.add(mapper.readValue(iterator.next().toJSONPretty(), ImageItem.class));
+			}
+			return list;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public List<ImageItem> getImageByDate(String cameraName,String date,String date2,String fromHour, String fromMinute, String toHour,String toMinute){
 		ObjectMapper mapper = new ObjectMapper();
 		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
@@ -87,6 +112,20 @@ public class ImageItemDao extends AbstractItemDao{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public void deleteSingleImage (ImageItem item){
+		DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
+		
+		try{
+			Table table = dynamoDB.getTable(this.getTable());
+			Map<String, String> expressionAttributeNames = new HashMap<String, String>();
+			expressionAttributeNames.put("#date", "date");
+			DeleteItemSpec deleteItemSpec = new DeleteItemSpec()
+					.withPrimaryKey("cameraName",item.getCameraName(),"date",item.getDate());
+			table.deleteItem(deleteItemSpec);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	public boolean update (ImageItem item) throws Exception{
 		

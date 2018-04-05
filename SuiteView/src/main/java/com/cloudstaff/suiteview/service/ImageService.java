@@ -2,6 +2,7 @@ package com.cloudstaff.suiteview.service;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.cloudstaff.suiteview.dynamodb.model.ImageItem;
 import com.cloudstaff.suiteview.dynamodb.repositories.ImageItemDao;
+import com.cloudstaff.suiteview.forms.model.ImageForm;
 
 
 @Service("imageService")
@@ -125,6 +127,23 @@ public class ImageService {
 		item.setWebUrl(url.toString());
 		item.setSignedUrlExp(expDt);
 		imageItemDao.update(item);
+	}
+	public void deleteImage(ImageForm iF){
+		AmazonS3 s3client = new AmazonS3Client(awsCredentials);
+		ImageItem item = new ImageItem();
+		item.setCameraName(iF.getCameraName());
+		item.setDate(iF.getDate());
+		//imageItemDao.deleteSingleImage(item);
+		//deleteS3Image(s3client, iF.getObjectKey());
+	}
+	public void deleteImageBefore(String cameraName,String date){
+		AmazonS3 s3client = new AmazonS3Client(awsCredentials);
+		List<ImageItem> list = imageItemDao.getImageByBeforeDate(cameraName, date);
+		for(ImageItem item: list){
+			//imageItemDao.deleteSingleImage(item);
+			//deleteS3Image(s3client, item.getObjectKey());
+		}
+			
 	}
 	private void deleteS3Image (AmazonS3 s3client,String objectKey){
 		try {
