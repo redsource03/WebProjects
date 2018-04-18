@@ -1,9 +1,6 @@
-
-<div class="container-fluid" style="background-color: #0658b1;min-height: 60px">
+<div class="container-fluid" style="background-color: #0658b1;min-height: 70px">
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: #0658b1; float:right">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <a href="/logout"><i id="logout"class="fa fa-share-square fa-3x"></i></a>
     </nav>
     </div>
     <div class="container-fluid">
@@ -13,10 +10,10 @@
         <div  class = "sidebar" style="width: 185px;float: left;">
         <ul class="nav nav-tabs " role="tablist"> 
         <li class="nav-item active">
-            <a class="nav-link" href="#cameraview" role="tab" data-toggle="tab">Camera View &nbsp;&nbsp;<i class="fa fa-line-chart fa-2x"></i></a>
+            <a class="nav-link" href="#cameraview" role="tab" data-toggle="tab">Camera View &nbsp;&nbsp;<i class="fa fa-camera fa-2x"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#reports" role="tab" data-toggle="tab">My Report&nbsp;&nbsp;<i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i></a>
+            <a class="nav-link" href="#messages" role="tab" data-toggle="tab">Messages&nbsp;&nbsp;<i class="fa fa-comments fa-2x"></i></a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="#settings" role="tab" data-toggle="tab">Settings&nbsp;&nbsp;<i class="fa fa-cogs fa-2x" aria-hidden="true"></i></a>
@@ -28,9 +25,8 @@
                    <imageView [user]="user"></imageView>
          
           </div>
-          <div id="reports" role="tabpanel"  class="tab-pane fade">
-              <createThread  style="float:right;"></createThread>
-              <threadList></threadList>
+          <div id="messages" role="tabpanel"  class="tab-pane fade">
+              <threadList [user]="user"></threadList>
           </div>
           <div id="settings" role="tabpanel"  class="tab-pane fade"> <changeProfile  [user]="user"></changeProfile></div>
           

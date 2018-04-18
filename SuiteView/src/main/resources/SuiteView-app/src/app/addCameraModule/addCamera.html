@@ -12,6 +12,12 @@
               <div *ngIf="cameraName.errors?.required" class="error"> 
                   *Camera Name required. 
               </div>
+              <div> 	  
+                  <label> Display Name:</label> <input class="field" type="text"   name="displayName" ngModel required #displayName="ngModel" >	
+                </div>
+                <div *ngIf="displayName.errors?.required" class="error"> 
+                    *Camera information is required.*
+               </div> 	 
               <div> 	 
               <label> Location:</label> <input class="field" type="text" name="location" ngModel required #location="ngModel">
               </div>

@@ -8,8 +8,11 @@
     <div class="modal-body">
            
             <div *ngFor="let item of comments;let index = index;trackBy:trackByIndex;">
-                    <div>{{item.username}}:{{item.comment}}
-                            <div style="float: right;">{{item.timestamp}}</div>
+                    <div>
+                        <div style="float: right;">{{item.timestamp}}</div>
+                        <div ><label class="userLabel">{{item.username}}</label></div>
+                        <div style="word-break: break-all;margin-left:10px;">{{item.comment}}</div>
+                           
                     </div>
                     
             </div>
