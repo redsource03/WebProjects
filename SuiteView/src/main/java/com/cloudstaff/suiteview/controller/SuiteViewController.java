@@ -29,9 +29,9 @@ public class SuiteViewController {
 			UserItem item = userService.getUserByKey(SessionUtil.isAlreadyLogin(request));
 			if (item!=null){
 				if(item.getAdmin().equalsIgnoreCase("y")){
-					return "admin";
+					return "home";
 				}else{
-					return "admin";/// need to change to normal user page				
+					return "home";/// need to change to normal user page				
 				}
 			}else{
 				return "login";
@@ -46,9 +46,9 @@ public class SuiteViewController {
 		if(item!=null){
 			SessionUtil.setAccessToken(response, item.getUserkey());
 			if(item.getAdmin().equals("y")){
-				return "admin";
+				return "home";
 			}else{
-				return "admin";/// need to change to normal user page				
+				return "home";/// need to change to normal user page				
 			}
 		}else{
 			return "login";
